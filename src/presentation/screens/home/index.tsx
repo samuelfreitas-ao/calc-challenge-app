@@ -1,6 +1,7 @@
 import { View } from "react-native"
+
 import { THEME } from "../../styles/theme"
-import { Text } from "../../components"
+import { Points, Text } from "../../components"
 
 export function Home () {
   return (
@@ -9,6 +10,16 @@ export function Home () {
       backgroundColor: THEME.colors.gray[700]
     }}
     >
+      <View style={{
+        padding: 24,
+        backgroundColor: THEME.colors.gray[200],
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+      }}>
+        <Points points={2000} type="right" />
+        <Points points={4} type="wrong" />
+      </View>
+
       <Text
         text="Qual é o resultado?"
         style={{

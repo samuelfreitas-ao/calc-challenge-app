@@ -24,7 +24,7 @@ export const THEME = {
     xs: 12,
     sm: 14,
     md: 16,
-    lg: 18,
+    lg: 24,
     xl: 32,
     '2xl': 48,
   },
