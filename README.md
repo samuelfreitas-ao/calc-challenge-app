@@ -4,7 +4,7 @@
   Este projecto é de uma calculadora, aonde o usuário pode treinar a tabuada. ela gera desafios de cálculo aleatório e acrescenta pontos positivos caso acerte e negativos caso erre no resultado.
 </p>
 <center>
-  <img src="./.github/preview.jpg" />
+  <img src="./.github/preview.jpg" width='350'/>
 </center>
 
 ## Tecnologias
