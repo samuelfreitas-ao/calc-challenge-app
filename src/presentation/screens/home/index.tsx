@@ -16,15 +16,14 @@ export function Home () {
 
   useEffect(() => {
     if (!started) return
-    setTimeout(() => {
+    const id = setInterval(() => {
       setTimer(timer + 1)
     }, 1000)
-  }, [timer])
+    return () => clearInterval(id)
+  }, [timer || started])
 
   useEffect(() => {
     generateQuestion()
-    console.log('Gener', timer)
-
   }, [])
 
   const handleStart = () => {
@@ -63,6 +62,7 @@ export function Home () {
 
   const handleConfirme = () => {
     handleStop()
+
     if (!answer) {
       Alert.alert('Aviso', 'Informe o resultado')
     } else {
