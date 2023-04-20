@@ -1,4 +1,6 @@
 export * from './button'
+export * from './history'
 export * from './logo'
 export * from './points'
 export * from './text'
+export * from './top-bar'

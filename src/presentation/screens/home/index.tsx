@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Alert, View, TextInput, ScrollView, Pressable } from "react-native"
-import { X } from "phosphor-react-native"
+import { Alert, View, TextInput, ScrollView } from "react-native"
 
 import { THEME } from "../../styles/theme"
-import { Button, Logo, Points, Text } from "../../components"
+import { Button, History, Logo, Points, Text, TopBar } from "../../components"
 import { DateUtils, NumberUtils, QuestionUtils } from '../../../utils'
 import { IOperator, IQuestion } from '../../../@types'
 
@@ -12,19 +11,19 @@ export function Home () {
 
   const [answer, setAnswer] = useState<string>('')
 
-  const [time, setTime] = useState<number>(0)
+  const [timer, setTimer] = useState<number>(0)
   const [started, setStarted] = useState<boolean>(true)
 
   useEffect(() => {
     if (!started) return
     setTimeout(() => {
-      setTime(time + 1)
+      setTimer(timer + 1)
     }, 1000)
-  }, [time])
+  }, [timer])
 
   useEffect(() => {
     generateQuestion()
-    console.log('Gener', time)
+    console.log('Gener', timer)
 
   }, [])
 
@@ -33,7 +32,7 @@ export function Home () {
   }
 
   const handleStop = () => {
-    setTime(0)
+    setTimer(0)
     setStarted(false)
   }
 
@@ -68,31 +67,29 @@ export function Home () {
       Alert.alert('Aviso', 'Informe o resultado')
     } else {
       const rightResult = QuestionUtils.execCalc(question.value1, question.value2, question.operator)
+      const isRight = rightResult === Number(answer)
 
-      const result = `Resposta certa:\t ${buildOperation({ ...question, answer: rightResult })}\n` +
+      const resultMessage = `Resposta certa:\t ${buildOperation({ ...question, answer: rightResult })}\n` +
         `Sua resposta:\t\t\t  ${buildOperation({ ...question, answer: Number(answer) })}`
 
       QuestionUtils.add({
         ...question,
-        isRight: rightResult === Number(answer),
+        isRight,
         answer: Number(answer),
-        seconds: time,
-        time: DateUtils.secondsToTime(time),
+        seconds: timer,
+        time: DateUtils.secondsToTime(timer),
         date: new Date()
       })
 
-      if (rightResult == Number(answer)) {
-        Alert.alert('Acertou!', result)
-        setTimeout(() => {
-          generateQuestion()
-        }, 100)
+      if (isRight) {
+        Alert.alert('Acertou!', resultMessage)
       } else {
-        Alert.alert('Errou!', result)
-        setTimeout(() => {
-          generateQuestion()
-        }, 100)
+        Alert.alert('Errou!', resultMessage)
       }
       setAnswer('')
+      setTimeout(() => {
+        generateQuestion()
+      }, 100)
     }
 
   }
@@ -103,29 +100,7 @@ export function Home () {
       backgroundColor: THEME.colors.gray[700]
     }}
     >
-      <View style={{
-        padding: 24,
-        backgroundColor: THEME.colors.gray[200],
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <Points
-          points={QuestionUtils.quetions.filter(quest => !quest.isRight).length}
-          type="wrong"
-        />
-        <Text text={DateUtils.secondsToTime(time)}
-          style={{
-            fontFamily: THEME.fonts.medium,
-            fontSize: THEME.fontSizes.md
-          }}
-        />
-        <Points
-          points={QuestionUtils.quetions.filter(quest => quest.isRight).length}
-          type="right"
-        />
-      </View>
-
+      <TopBar timer={timer} />
       <View
         style={{
           rowGap: 24,
@@ -207,72 +182,7 @@ export function Home () {
                   }}
                 />
               </Button>
-
-              <View
-                style={{
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  rowGap: 4,
-                  marginTop: 8,
-                  backgroundColor: THEME.colors.gray[200],
-                  padding: 4
-                }}
-              >
-                <Text text={`Histórico (${QuestionUtils.quetions.length})`}
-                  style={{ minWidth: 15, fontFamily: THEME.fonts.heading, fontSize: THEME.fontSizes['xl'] }}
-                />
-                {QuestionUtils.quetions.sort((a, b) => {
-                  const x = a.date.getTime(),
-                    y = b.date.getTime()
-                  if (x > y) {
-                    return -1
-                  }
-                  if (x < y) {
-                    return 1
-                  }
-                  return 0
-                }).map((quest, i) => (
-                  <View key={i}
-                    style={{
-                      flexDirection: 'row',
-                      backgroundColor: THEME.colors.gray[700],
-                      gap: 4,
-                      padding: 8,
-                    }}
-                  >
-                    <Text text={quest.value1.toString()}
-                      style={{ minWidth: 15, fontFamily: THEME.fonts.heading }}
-                    />
-                    <Text text={quest.operator}
-                      style={{ minWidth: 15, fontFamily: THEME.fonts.heading }}
-                    />
-                    <Text text={quest.value2.toString()}
-                      style={{ minWidth: 15, fontFamily: THEME.fonts.heading }}
-                    />
-                    <Text text={'='}
-                      style={{ minWidth: 15, fontFamily: THEME.fonts.heading }}
-                    />
-                    <Text text={quest.answer.toString()}
-                      style={{ minWidth: 15, fontFamily: THEME.fonts.heading }}
-                    />
-                    <Text text={quest.isRight ? 'Acertou' : 'Errou'}
-                      style={{
-                        marginLeft: 4,
-                        fontFamily: THEME.fonts.heading,
-                        textAlign: 'right',
-                        // backgroundColor: 'black'
-                      }}
-                    />
-                    <Pressable onPress={() => handleRemove(quest)}
-                      style={{
-                        flex: 1,
-                        alignItems: 'flex-end',
-                      }}>
-                      <X color={THEME.colors.red[800]} />
-                    </Pressable>
-                  </View>
-                ))}
-              </View>
+              <History onRemove={handleRemove} />
             </View>
           </View>
         </ScrollView>
