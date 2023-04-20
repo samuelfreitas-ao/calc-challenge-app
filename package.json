@@ -1,4 +1,9 @@
 {
+  "author": {
+    "name": "Samuel Freitas",
+    "email": "samuelfreitas.ao@gmail.com",
+    "url": "https://github.com/samuelfreitas-ao"
+  },
   "dependencies": {
     "@expo-google-fonts/exo": "^0.2.3",
     "expo": "^48.0.7",
