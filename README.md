@@ -1,7 +1,7 @@
 # CalcGuess
 
 <p>
-  Este projecto é de uma calculadora, aonde o usuário pode treinar a tabuada. ela gera desafios de cálculo aleatório e acrescenta pontos positivos caso acerte e negativos caso erre no resultado.
+  Este app mobile é de uma calculadora, aonde o usuário pode treinar a tabuada. ela gera desafios de cálculo aleatório e acrescenta pontos positivos caso acerte e negativos caso erre no resultado.
 </p>
 <center>
   <img src="./.github/preview.png" width='800'/>
