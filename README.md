@@ -11,6 +11,7 @@
 
 - React Native
 - Expo
+- Typescript
 
 ## 🚀 Como usar
 
