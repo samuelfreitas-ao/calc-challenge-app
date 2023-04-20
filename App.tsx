@@ -1,18 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { Exo_400Regular, Exo_500Medium, Exo_700Bold, useFonts } from '@expo-google-fonts/exo'
 
-export default function App() {
+import { Home } from './src/presentation/screens'
+
+export default function App () {
+  const [fontsLoaded] = useFonts({ Exo_400Regular, Exo_500Medium, Exo_700Bold })
+
+  if (!fontsLoaded) return <></>
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+    <SafeAreaProvider style={{
+      paddingTop: StatusBar.currentHeight || 0,
+    }}>
+      <StatusBar
+        barStyle='dark-content'
+        backgroundColor='transparent'
+        translucent
+      />
+      <Home />
+    </SafeAreaProvider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
