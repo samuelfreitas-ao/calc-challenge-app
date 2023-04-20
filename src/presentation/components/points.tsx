@@ -17,17 +17,33 @@ export function Points ({ points, type }: Props) {
       }}>
       {
         type === 'right' ?
-          <ThumbsUp color={THEME.colors.green[700]} />
+          <ThumbsUp
+            color={THEME.colors.green[700]}
+            weight='fill'
+          />
           :
-          <ThumbsDown color={THEME.colors.red[700]} />
+          <ThumbsDown
+            color={THEME.colors.red[700]}
+            weight='fill'
+          />
       }
-      <Text
-        text={points.toString()}
+      <View
         style={{
-          fontSize: THEME.fontSizes.lg,
-          color: THEME.colors.red[700]
-        }}
-      />
+          borderColor: THEME.colors.gray[800],
+          borderWidth: 1,
+          paddingHorizontal: 16,
+          paddingVertical: 4,
+          borderRadius: 8
+        }}>
+        <Text
+          text={points.toString()}
+          style={{
+            fontSize: THEME.fontSizes.md,
+            color: type === 'right' ? THEME.colors.green[700] : THEME.colors.red[700],
+            fontFamily: THEME.fonts.heading
+          }}
+        />
+      </View>
     </View>
   )
 }
