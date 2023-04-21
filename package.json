@@ -1,4 +1,6 @@
 {
+  "name": "calc-guess",
+  "version": "1.0.0",
   "author": {
     "name": "Samuel Freitas",
     "email": "samuelfreitas.ao@gmail.com",
@@ -29,7 +31,5 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
-  "version": "1.0.0",
-  "private": true,
-  "name": "calculadora"
+  "private": true
 }
