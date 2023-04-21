@@ -6,10 +6,11 @@ import { THEME } from '../styles/theme'
 import { ArrayUtils, QuestionUtils } from '../../utils'
 import { IQuestion } from '../../@types'
 
-type Props = {
-  onRemove: (question: IQuestion) => void
-}
-export function History ({ onRemove }: Props) {
+export function History () {
+  const onRemove = (quest: IQuestion) => {
+    QuestionUtils.quetions = [...QuestionUtils.quetions].
+      filter(questItem => questItem.date != quest.date)
+  }
   return (
     <View
       style={{

@@ -55,13 +55,13 @@ export function Home () {
     return `${question.value1} ${question.operator} ${question.value2}${question.answer ? ' = ' + question.answer : ''}`
   }
 
-  const handleRemove = (quest: IQuestion) => {
-    QuestionUtils.quetions = [...QuestionUtils.quetions].
-      filter(questItem => questItem.date != quest.date)
-  }
-
   const handleConfirme = () => {
-    handleStop()
+    if (started) {
+      handleStop()
+    } else {
+      generateQuestion()
+      return
+    }
 
     if (!answer) {
       Alert.alert('Aviso', 'Informe o resultado')
@@ -87,9 +87,6 @@ export function Home () {
         Alert.alert('Errou!', resultMessage)
       }
       setAnswer('')
-      setTimeout(() => {
-        generateQuestion()
-      }, 100)
     }
 
   }
@@ -174,7 +171,7 @@ export function Home () {
                 }}
                 onPress={handleConfirme}
               >
-                <Text text="CONFIRMAR"
+                <Text text={started ? 'CONFIRMAR' : 'Iniciar desafio'}
                   style={{
                     fontSize: THEME.fontSizes.lg,
                     fontFamily: THEME.fonts.heading,
@@ -182,7 +179,7 @@ export function Home () {
                   }}
                 />
               </Button>
-              <History onRemove={handleRemove} />
+              <History />
             </View>
           </View>
         </ScrollView>

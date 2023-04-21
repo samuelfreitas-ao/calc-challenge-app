@@ -5,6 +5,7 @@ type Params = {
 }
 export class ArrayUtils {
   static sort<T = any>({ array, fieldToOrder, order }: Params): T {
+    if (!array || array.length < 1) return [] as T
     if (!fieldToOrder) {
       return [...array].sort((a, b) => {
         switch (order) {
