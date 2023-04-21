@@ -1,7 +1,7 @@
 import { View } from 'react-native'
-import { ThumbsUp, ThumbsDown } from 'phosphor-react-native'
 import { Text } from './text'
 import { THEME } from '../styles/theme'
+import { IconThumbsDown, IconThumbsUp } from './icon'
 
 type Props = {
   points: number
@@ -17,12 +17,12 @@ export function Points ({ points, type }: Props) {
       }}>
       {
         type === 'right' ?
-          <ThumbsUp
+          <IconThumbsUp
             color={THEME.colors.green[700]}
             weight='fill'
           />
           :
-          <ThumbsDown
+          <IconThumbsDown
             color={THEME.colors.red[700]}
             weight='fill'
           />
