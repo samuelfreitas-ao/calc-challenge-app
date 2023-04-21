@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CalcGuess",
-    "slug": "calc-guess",
+    "name": "Calc Challenge",
+    "slug": "calc-challenge",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,11 +19,11 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "ao.freitas.calcguess",
+      "bundleIdentifier": "ao.freitas.calcchallenge",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "ao.freitas.calcguess",
+      "package": "ao.freitas.calcchallenge",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
@@ -32,11 +32,6 @@
     },
     "web": {
       "favicon": "./assets/logo.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "0d3361d2-c007-482b-9510-d2597b2c6068"
-      }
     }
   }
 }

@@ -17,7 +17,7 @@
 
 - Clone o repositório
 
-`git clone https://github.com/samuelfreitas-ao/calc-guess-app.git`
+`git clone https://github.com/samuelfreitas-ao/calc-challenge-app.git`
 
 - Instale as dependências do projecto
 
