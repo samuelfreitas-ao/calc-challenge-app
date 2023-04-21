@@ -10,6 +10,7 @@ import {
   Question,
   ThumbsUp,
   ThumbsDown,
+  TwitterLogo,
   User,
   WhatsappLogo,
   X,
@@ -27,6 +28,7 @@ export const IconPaperPlaneRight = (props: IconProps) => <PaperPlaneRight {...pr
 export const IconQuestion = (props: IconProps) => <Question {...props} />
 export const IconThumbsDown = (props: IconProps) => <ThumbsDown {...props} />
 export const IconThumbsUp = (props: IconProps) => <ThumbsUp {...props} />
+export const IconTwitter = (props: IconProps) => <TwitterLogo {...props} />
 export const IconUser = (props: IconProps) => <User {...props} />
 export const IconWhatsapp = (props: IconProps) => <WhatsappLogo {...props} />
 export const IconX = (props: IconProps) => <X {...props} />
