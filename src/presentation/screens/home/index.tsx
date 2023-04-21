@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Alert, View, TextInput, ScrollView } from "react-native"
 
 import { THEME } from "../../styles/theme"
-import { Button, History, Logo, Points, Text, TopBar } from "../../components"
+import { Button, History, IconHandPointing, IconPaperPlaneRight, Logo, Points, Text, TopBar } from "../../components"
 import { DateUtils, NumberUtils, QuestionUtils } from '../../../utils'
 import { IOperator, IQuestion } from '../../../@types'
 
@@ -12,7 +12,8 @@ export function Home () {
   const [answer, setAnswer] = useState<string>('')
 
   const [timer, setTimer] = useState<number>(0)
-  const [started, setStarted] = useState<boolean>(true)
+  const [started, setStarted] = useState<boolean>(false)
+  const [isFirstQuestion, setIsFirstQuestion] = useState<boolean>(true)
 
   useEffect(() => {
     if (!started) return
@@ -22,9 +23,6 @@ export function Home () {
     return () => clearInterval(id)
   }, [timer || started])
 
-  useEffect(() => {
-    generateQuestion()
-  }, [])
 
   const handleStart = () => {
     setStarted(true)
@@ -36,6 +34,7 @@ export function Home () {
   }
 
   const generateQuestion = () => {
+    setIsFirstQuestion(false)
     handleStart()
     const operators = [IOperator.plus, IOperator.multiply, IOperator.minus, IOperator.division]
 
@@ -56,6 +55,11 @@ export function Home () {
   }
 
   const handleConfirme = () => {
+    if (!answer && started) {
+      Alert.alert('Aviso', 'Informe o resultado')
+      return
+    }
+
     if (started) {
       handleStop()
     } else {
@@ -63,32 +67,27 @@ export function Home () {
       return
     }
 
-    if (!answer) {
-      Alert.alert('Aviso', 'Informe o resultado')
+    const rightResult = QuestionUtils.execCalc(question.value1, question.value2, question.operator)
+    const isRight = rightResult === Number(answer)
+
+    const resultMessage = `Resposta certa:\t ${buildOperation({ ...question, answer: rightResult })}\n` +
+      `Sua resposta:\t\t\t  ${buildOperation({ ...question, answer: Number(answer) })}`
+
+    QuestionUtils.add({
+      ...question,
+      isRight,
+      answer: Number(answer),
+      seconds: timer,
+      time: DateUtils.secondsToTime(timer),
+      date: new Date()
+    })
+
+    if (isRight) {
+      // Alert.alert('Acertou!', resultMessage)
     } else {
-      const rightResult = QuestionUtils.execCalc(question.value1, question.value2, question.operator)
-      const isRight = rightResult === Number(answer)
-
-      const resultMessage = `Resposta certa:\t ${buildOperation({ ...question, answer: rightResult })}\n` +
-        `Sua resposta:\t\t\t  ${buildOperation({ ...question, answer: Number(answer) })}`
-
-      QuestionUtils.add({
-        ...question,
-        isRight,
-        answer: Number(answer),
-        seconds: timer,
-        time: DateUtils.secondsToTime(timer),
-        date: new Date()
-      })
-
-      if (isRight) {
-        Alert.alert('Acertou!', resultMessage)
-      } else {
-        Alert.alert('Errou!', resultMessage)
-      }
-      setAnswer('')
+      // Alert.alert('Errou!', resultMessage)
     }
-
+    setAnswer('')
   }
 
   return (
@@ -131,24 +130,24 @@ export function Home () {
                   alignItems: 'center'
                 }}>
                 <Text
-                  text="Qual é o resultado?"
+                  text={started ? 'Qual é o resultado?' : (isFirstQuestion ? 'Comece o desafio' : 'Continue o desafio')}
                   style={{
                     color: THEME.colors.gray[200],
                     fontSize: THEME.fontSizes.xl,
                     fontFamily: THEME.fonts.medium,
                   }}
                 />
-                <Text
+                {started && <Text
                   text={buildOperation(question)}
                   style={{
                     color: THEME.colors.gray[200],
                     fontSize: THEME.fontSizes["2xl"],
                     fontFamily: THEME.fonts.medium,
                   }}
-                />
+                />}
               </View>
 
-              <View>
+              {started && <View>
                 <TextInput
                   placeholder="Informe o resultado"
                   value={answer}
@@ -164,20 +163,24 @@ export function Home () {
                   keyboardType="numeric"
                   onChangeText={handleInputChange}
                 />
-              </View>
+              </View>}
               <Button
                 style={{
                   backgroundColor: THEME.colors.gray[500]
                 }}
                 onPress={handleConfirme}
               >
-                <Text text={started ? 'CONFIRMAR' : 'Iniciar desafio'}
+                <Text text={started ? 'CONFIRMAR' : (isFirstQuestion ? 'Iniciar desafio' : 'Próxima questão')}
                   style={{
                     fontSize: THEME.fontSizes.lg,
                     fontFamily: THEME.fonts.heading,
                     color: THEME.colors.gray[800]
                   }}
                 />
+                {
+                  started ? <IconPaperPlaneRight color={THEME.colors.gray[800]} /> :
+                    <IconHandPointing color={THEME.colors.gray[800]} weight='fill' />
+                }
               </Button>
               <History />
             </View>
