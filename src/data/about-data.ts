@@ -1,4 +1,6 @@
+const message = 'Saudações Samuel, podemos conversar sobre algum projecto?'
 export const AbouData = () => ({
+  message,
   developer: {
     name: 'Samuel Freitas',
     email: 'samuelfreitas.ao@gmail.com',
@@ -9,8 +11,7 @@ export const AbouData = () => ({
     instagram: 'https://instagram.com/samuelfreitas.ao',
     linkedin: 'https://linkedin.com/in/samuelfreitas-ao',
     twitter: 'https://twitter.com/samuelfreitasao',
-    whatsapp:
-      'https://wa.me/244930690710?text=Saudações Samuel, podemos conversar sobre projectos?',
+    whatsapp: 'https://wa.me/message/BEZBIUEUNXEZH1',
   },
   app: {
     name: 'Calc Challenge',

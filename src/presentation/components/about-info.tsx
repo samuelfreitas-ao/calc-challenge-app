@@ -1,31 +1,42 @@
 import { GestureResponderEvent, Pressable, View, Linking, Alert } from "react-native"
 import { ReactNode, useRef } from "react"
 
+import * as MailComposer from 'expo-mail-composer'
+
 import { Text } from "./text"
 import { THEME } from "../styles/theme"
-import { IconEmail, IconFacebook, IconGithub, IconInfo, IconUser, IconWhatsapp, IconCopyright } from "./icon"
+import { IconEmail, IconFacebook, IconGithub, IconInfo, IconUser, IconWhatsapp, IconCopyright, IconLinkedIn, IconTwitter } from "./icon"
 import { OpenLinkUtils } from "../../utils/open-link-util"
-import { AbouData } from "../../utils"
+import { AbouData } from "../../data"
 
 type Props = {
   onClose: (show: boolean) => void
 }
 export function AboutInfo ({ onClose }: Props) {
   const modalRef = useRef()
-  const { app, developer, links } = AbouData()
+  const { app, developer, links, message } = AbouData()
 
   const handleClose = (event: GestureResponderEvent) => {
     if (event.target == modalRef.current) onClose(false)
   }
-  const initalYear = 2022
+  const initalYear = 2023
   const currentYear = new Date().getUTCFullYear()
   const copyRightYear = initalYear < currentYear ? `${initalYear} - ${currentYear}` : initalYear
 
-  const openLink = async (url: string) => {
+  const handleOpenLink = async (url: string) => {
     const opened = await OpenLinkUtils.open(url)
     if (!opened) {
       Alert.alert('Erro', 'Não foi possível abrir link.')
     }
+  }
+
+  const handleMail = () => {
+    MailComposer.composeAsync({
+      subject: 'Desenvolvimento de software/negócio',
+      recipients: [developer.email],
+      body: message,
+      isHtml: true
+    })
   }
 
   return (
@@ -79,7 +90,7 @@ export function AboutInfo ({ onClose }: Props) {
             }}
           />
           <Text
-            text={app.version}
+            text={`Versão ${app.version}`}
             style={{
               fontFamily: THEME.fonts.medium,
             }}
@@ -137,14 +148,22 @@ export function AboutInfo ({ onClose }: Props) {
           icon={<IconUser color={THEME.colors.gray[800]} weight="fill" />}
           value={developer.name}
         />
-        <TextBox
-          icon={<IconEmail color={THEME.colors.gray[800]} />}
-          value={developer.email}
-        />
-        <TextBox
-          icon={<IconGithub color={THEME.colors.gray[800]} weight="fill" />}
-          value="github.com/samuelfreitas-ao"
-        />
+        <Pressable
+          onPress={handleMail}>
+          <TextBox
+            icon={<IconEmail color={THEME.colors.gray[800]} />}
+            value={developer.email}
+            isLink={true}
+          />
+        </Pressable>
+        <Pressable
+          onPress={async () => handleOpenLink(links.github)}>
+          <TextBox
+            icon={<IconGithub color={THEME.colors.gray[800]} weight="fill" />}
+            value={links.github.substring(8)}
+            isLink={true}
+          />
+        </Pressable>
         <View
           style={{
             flexDirection: 'row',
@@ -155,12 +174,20 @@ export function AboutInfo ({ onClose }: Props) {
             borderTopColor: THEME.colors.gray[200],
             borderTopWidth: 1,
           }}>
-          <Pressable onPress={async () => openLink(links.whatsapp)}>
+          <Pressable onPress={async () => handleOpenLink(links.whatsapp)}>
             <IconWhatsapp color={THEME.colors.gray[800]} weight="fill"
               size={THEME.fontSizes["2xl"]} />
           </Pressable>
-          <Pressable onPress={async () => openLink(links.facebook)}>
+          <Pressable onPress={async () => handleOpenLink(links.linkedin)}>
+            <IconLinkedIn color={THEME.colors.gray[800]} weight="fill"
+              size={THEME.fontSizes["2xl"]} />
+          </Pressable>
+          <Pressable onPress={async () => handleOpenLink(links.facebook)}>
             <IconFacebook color={THEME.colors.gray[800]} weight="fill"
+              size={THEME.fontSizes["2xl"]} />
+          </Pressable>
+          <Pressable onPress={async () => handleOpenLink(links.twitter)}>
+            <IconTwitter color={THEME.colors.gray[800]} weight="fill"
               size={THEME.fontSizes["2xl"]} />
           </Pressable>
         </View>
@@ -173,8 +200,9 @@ type TextBoxProps = {
   label?: ReactNode
   icon?: ReactNode
   value: string
+  isLink?: boolean
 }
-function TextBox ({ label, value, icon }: TextBoxProps) {
+function TextBox ({ label, value, icon, isLink }: TextBoxProps) {
   return (
     <View
       style={{
@@ -192,7 +220,9 @@ function TextBox ({ label, value, icon }: TextBoxProps) {
       <Text
         style={{
           fontFamily: THEME.fonts.medium,
-          fontSize: THEME.fontSizes.md
+          fontSize: THEME.fontSizes.md,
+          textDecorationLine: isLink ? 'underline' : 'none',
+          color: isLink ? THEME.colors.blue[800] : THEME.colors.gray[800],
         }}
       >{value}</Text>
     </View>
