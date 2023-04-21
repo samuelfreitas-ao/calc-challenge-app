@@ -15,6 +15,7 @@ export const THEME = {
       500: '#ADADAB',
       200: '#D9D9D9',
     },
+    white: '#FFFFFF',
   },
   fonts: {
     heading: 'Exo_700Bold',

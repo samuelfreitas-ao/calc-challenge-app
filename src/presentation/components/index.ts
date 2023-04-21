@@ -1,3 +1,5 @@
+export * from './about-info'
+export * from './about-call-action'
 export * from './button'
 export * from './history'
 export * from './icon'

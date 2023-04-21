@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import { Alert, View, TextInput, ScrollView } from "react-native"
 
 import { THEME } from "../../styles/theme"
-import { Button, History, IconHandPointing, IconPaperPlaneRight, Logo, Points, Text, TopBar } from "../../components"
+import { AboutCallAction, AboutInfo, Button, History, IconHandPointing, IconPaperPlaneRight, IconQuestion, Logo, Points, Text, TopBar } from "../../components"
 import { DateUtils, NumberUtils, QuestionUtils } from '../../../utils'
 import { IOperator, IQuestion } from '../../../@types'
+import { Pressable } from 'react-native'
 
 export function Home () {
   const [question, setQuestion] = useState<IQuestion>({} as IQuestion)
@@ -14,6 +15,8 @@ export function Home () {
   const [timer, setTimer] = useState<number>(0)
   const [started, setStarted] = useState<boolean>(false)
   const [isFirstQuestion, setIsFirstQuestion] = useState<boolean>(true)
+
+  const [showAboutInfo, setShowAboutInfo] = useState<boolean>(false)
 
   useEffect(() => {
     if (!started) return
@@ -90,13 +93,23 @@ export function Home () {
     setAnswer('')
   }
 
+  const handleAboutInfo = () => {
+    setShowAboutInfo(true)
+  }
+
   return (
     <View style={{
       flex: 1,
-      backgroundColor: THEME.colors.gray[700]
+      backgroundColor: THEME.colors.gray[700],
+      position: 'relative'
     }}
     >
       <TopBar timer={timer} />
+
+      {showAboutInfo && <AboutInfo onClose={setShowAboutInfo} />}
+
+      <AboutCallAction onPress={handleAboutInfo} />
+
       <View
         style={{
           rowGap: 24,
