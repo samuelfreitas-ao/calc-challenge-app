@@ -1,5 +1,6 @@
 export * from './button'
 export * from './history'
+export * from './icon'
 export * from './logo'
 export * from './points'
 export * from './text'
