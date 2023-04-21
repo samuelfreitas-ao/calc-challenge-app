@@ -14,6 +14,8 @@ export function Button ({ children, style, ...props }: ButtonProps) {
           gap: 8,
           padding: 16,
           borderRadius: 8,
+          flexDirection: 'row',
+          justifyContent: 'center',
           opacity: pressed ? 0.7 : 1
         }, style as any]}
 
