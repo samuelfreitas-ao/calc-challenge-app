@@ -5,6 +5,7 @@ import {
   GithubLogo,
   HandPointing,
   Info,
+  LinkedinLogo,
   PaperPlaneRight,
   Question,
   ThumbsUp,
@@ -21,6 +22,7 @@ export const IconFacebook = (props: IconProps) => <FacebookLogo {...props} />
 export const IconGithub = (props: IconProps) => <GithubLogo {...props} />
 export const IconHandPointing = (props: IconProps) => <HandPointing {...props} />
 export const IconInfo = (props: IconProps) => <Info {...props} />
+export const IconLinkedIn = (props: IconProps) => <LinkedinLogo {...props} />
 export const IconPaperPlaneRight = (props: IconProps) => <PaperPlaneRight {...props} />
 export const IconQuestion = (props: IconProps) => <Question {...props} />
 export const IconThumbsDown = (props: IconProps) => <ThumbsDown {...props} />
