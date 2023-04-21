@@ -8,6 +8,7 @@ export class DateUtils {
       .toString()
       .padStart(2, '0')
     const s = (totalSeconds % 60).toString().padStart(2, '0')
+
     return `${h}:${i}:${s}`
   }
 }
