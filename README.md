@@ -31,4 +31,4 @@ npm install
 npm run start
 ```
 
-[Layout do projecto](https://www.figma.com/file/XfpDaTpOYz9CcCWmNnQ0cs/Calculadora---Guess?node-id=1-4&t=Pdcof5UKhu7DXsAh-0)
+[Layout do projecto](https://www.figma.com/file/XfpDaTpOYz9CcCWmNnQ0cs/Calc-Challenge?node-id=0%3A1&t=9aXlaxuU12LW8IkH-1)
