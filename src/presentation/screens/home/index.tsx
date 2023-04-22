@@ -3,17 +3,13 @@ import { Alert, View, TextInput, ScrollView, StatusBar } from "react-native"
 
 import { THEME } from "../../styles/theme"
 import {
-  AboutCallAction,
   AboutInfo,
   Button,
-  History,
   IconHandPointing,
   IconPaperPlaneRight,
-  IconQuestion,
   Logo,
   Menu,
   MenuCallAction,
-  Points,
   Text,
   TopBar
 } from "../../components"
@@ -29,7 +25,6 @@ export function Home () {
   const [started, setStarted] = useState<boolean>(false)
   const [isFirstQuestion, setIsFirstQuestion] = useState<boolean>(true)
 
-  const [showAboutInfo, setShowAboutInfo] = useState<boolean>(false)
   const [showMenu, setShowMenu] = useState<boolean>(false)
 
   useEffect(() => {
@@ -107,10 +102,6 @@ export function Home () {
     setAnswer('')
   }
 
-  const handleAboutInfo = () => {
-    setShowAboutInfo(true)
-  }
-
   const handleShowMenu = () => {
     setShowMenu(true)
   }
@@ -125,23 +116,22 @@ export function Home () {
       <TopBar timer={timer} />
       <View
         style={{
+          position: 'relative',
           flexDirection: 'row',
           paddingHorizontal: 24,
+          paddingVertical: 16,
           gap: 24,
-          paddingTop: 16,
-          paddingBottom: 16,
           borderBottomColor: THEME.colors.gray[200],
           borderBottomWidth: 1,
-          position: 'relative'
         }}
       >
         <MenuCallAction onPress={handleShowMenu} />
         <View style={{
           position: 'absolute',
           zIndex: -1,
-          alignItems: 'center',
           left: -16,
           right: -16,
+          alignItems: 'center',
           justifyContent: 'center',
           paddingVertical: 12
         }}>
@@ -151,14 +141,10 @@ export function Home () {
 
       {showMenu && <Menu onClose={setShowMenu} />}
 
-      {showAboutInfo && <AboutInfo onClose={setShowAboutInfo} />}
-
-      {/* <AboutCallAction onPress={handleShowMenu} /> */}
       <View
         style={{
           flex: 1,
-          marginVertical: 5,
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         <View style={{
@@ -223,7 +209,6 @@ export function Home () {
                 <IconHandPointing color={THEME.colors.gray[800]} weight='fill' />
             }
           </Button>
-          {/* <History /> */}
         </View>
       </View>
     </View>
