@@ -10,7 +10,8 @@ import {
   IconTrash,
   IconThumbsUp,
   IconThumbsDown,
-  IconClock
+  IconClock,
+  SimpleButton
 } from './'
 
 import { useApp } from '../../hooks'
@@ -86,14 +87,15 @@ export function History () {
                     />
                   </>
                 }
-
-                <Pressable onPress={() => onRemove(item)}
+                <View
                   style={{
                     flex: 1,
                     alignItems: 'flex-end',
                   }}>
-                  <IconTrash weight='fill' color={THEME.colors.gray[800]} />
-                </Pressable>
+                  <SimpleButton onPress={() => onRemove(item)}>
+                    <IconTrash weight='fill' color={THEME.colors.gray[800]} />
+                  </SimpleButton>
+                </View>
               </View>
               <View style={{
                 flexDirection: 'row',
