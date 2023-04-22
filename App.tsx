@@ -10,9 +10,7 @@ export default function App () {
   if (!fontsLoaded) return <></>
 
   return (
-    <SafeAreaProvider style={{
-      paddingTop: StatusBar.currentHeight || 0,
-    }}>
+    <SafeAreaProvider>
       <StatusBar
         barStyle='dark-content'
         backgroundColor='transparent'

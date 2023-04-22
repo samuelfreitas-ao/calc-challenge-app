@@ -5,7 +5,6 @@ import { THEME } from "../../styles/theme"
 import { AboutCallAction, AboutInfo, Button, History, IconHandPointing, IconPaperPlaneRight, IconQuestion, Logo, Points, Text, TopBar } from "../../components"
 import { DateUtils, NumberUtils, QuestionUtils } from '../../../utils'
 import { IOperator, IQuestion } from '../../../@types'
-import { Pressable } from 'react-native'
 
 export function Home () {
   const [question, setQuestion] = useState<IQuestion>({} as IQuestion)
@@ -101,6 +100,7 @@ export function Home () {
     <View style={{
       flex: 1,
       backgroundColor: THEME.colors.gray[700],
+      // paddingTop: StatusBar.currentHeight || 0,
       position: 'relative'
     }}
     >

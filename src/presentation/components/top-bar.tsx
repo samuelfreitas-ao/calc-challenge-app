@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View, StatusBar } from 'react-native'
 import { THEME } from '../styles/theme'
 import { DateUtils, QuestionUtils } from '../../utils'
 import { Points } from './points'
@@ -11,7 +11,9 @@ type Props = {
 export function TopBar ({ timer }: Props) {
   return (
     <View style={{
-      padding: 24,
+      paddingTop: 24 + StatusBar.currentHeight || 0,
+      paddingHorizontal: 24,
+      paddingBottom: 24,
       backgroundColor: THEME.colors.gray[200],
       flexDirection: 'row',
       justifyContent: 'space-between',
