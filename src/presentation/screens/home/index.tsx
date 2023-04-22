@@ -3,12 +3,10 @@ import { Alert, View, TextInput, ScrollView, StatusBar } from "react-native"
 
 import { THEME } from "../../styles/theme"
 import {
-  AboutInfo,
   Button,
   IconHandPointing,
   IconPaperPlaneRight,
   Logo,
-  Menu,
   MenuCallAction,
   Text,
   TopBar
@@ -24,8 +22,6 @@ export function Home () {
   const [timer, setTimer] = useState<number>(0)
   const [started, setStarted] = useState<boolean>(false)
   const [isFirstQuestion, setIsFirstQuestion] = useState<boolean>(true)
-
-  const [showMenu, setShowMenu] = useState<boolean>(false)
 
   useEffect(() => {
     if (!started) return
@@ -102,10 +98,6 @@ export function Home () {
     setAnswer('')
   }
 
-  const handleShowMenu = () => {
-    setShowMenu(true)
-  }
-
   return (
     <View style={{
       flex: 1,
@@ -125,7 +117,8 @@ export function Home () {
           borderBottomWidth: 1,
         }}
       >
-        <MenuCallAction onPress={handleShowMenu} />
+        <MenuCallAction />
+
         <View style={{
           position: 'absolute',
           zIndex: -1,
@@ -138,8 +131,6 @@ export function Home () {
           <Logo size='md' />
         </View>
       </View>
-
-      {showMenu && <Menu onClose={setShowMenu} />}
 
       <View
         style={{

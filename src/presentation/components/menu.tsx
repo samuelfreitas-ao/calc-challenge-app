@@ -5,6 +5,7 @@ import { Text } from "./text"
 import { IconHistory, IconInfo, IconList } from "./icon"
 import { Logo } from "./logo"
 import { SimpleButton } from "./button"
+import { useApp } from "../../hooks"
 
 type MenuProps = {
   show?: boolean
@@ -12,6 +13,7 @@ type MenuProps = {
 }
 
 export function Menu ({ show, onClose }: MenuProps) {
+  const { setShowAboutInfo, setShowHistory } = useApp()
   const menuRef = useRef()
 
   const autoClose = (event: GestureResponderEvent) => {
@@ -20,6 +22,16 @@ export function Menu ({ show, onClose }: MenuProps) {
 
   const handleClose = () => {
     onClose(false)
+  }
+
+  const handleShowAboutInfo = () => {
+    handleClose()
+    setShowAboutInfo(true)
+  }
+
+  const handleShowHistory = () => {
+    handleClose()
+    setShowHistory(true)
   }
 
   return (
@@ -58,12 +70,12 @@ export function Menu ({ show, onClose }: MenuProps) {
         <MenuItem
           text="Histórico"
           icon={<IconHistory color={THEME.colors.gray[200]} />}
-          onPress={handleClose}
+          onPress={handleShowHistory}
         />
         <MenuItem
           text="Sobre"
           icon={<IconInfo color={THEME.colors.gray[200]} />}
-          onPress={handleClose}
+          onPress={handleShowAboutInfo}
         />
       </View>
     </Pressable>
@@ -102,16 +114,15 @@ function MenuItem ({ text, icon, border, onPress }: MenuItemProps) {
   )
 }
 
-type Props = {
-  onPress: () => void
-}
-export function MenuCallAction ({ onPress }: Props) {
+export function MenuCallAction () {
+  const { setShowMenu } = useApp()
+
   return (
     <View
       style={{
       }}>
       <SimpleButton
-        onPress={onPress}>
+        onPress={() => setShowMenu(true)}>
         <IconList
           color={THEME.colors.gray[200]}
           weight='fill'

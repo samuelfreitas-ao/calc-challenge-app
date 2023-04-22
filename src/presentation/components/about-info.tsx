@@ -5,21 +5,27 @@ import * as MailComposer from 'expo-mail-composer'
 
 import { Text } from "./text"
 import { THEME } from "../styles/theme"
-import { IconEmail, IconFacebook, IconGithub, IconInfo, IconUser, IconWhatsapp, IconCopyright, IconLinkedIn, IconTwitter } from "./icon"
+import {
+  IconEmail,
+  IconFacebook,
+  IconGithub,
+  IconInfo,
+  IconUser,
+  IconWhatsapp,
+  IconCopyright,
+  IconLinkedIn,
+  IconTwitter,
+  SimpleButton,
+  Modal
+} from "./"
 import { OpenLinkUtils } from "../../utils/open-link-util"
 import { AbouData } from "../../data"
-import { SimpleButton } from "./button"
+import { useApp } from "../../hooks"
 
-type Props = {
-  onClose: (show: boolean) => void
-}
-export function AboutInfo ({ onClose }: Props) {
-  const modalRef = useRef()
+export function AboutInfo () {
+  const { setShowAboutInfo } = useApp()
   const { app, developer, links, message } = AbouData()
 
-  const handleClose = (event: GestureResponderEvent) => {
-    if (event.target == modalRef.current) onClose(false)
-  }
   const initalYear = 2023
   const currentYear = new Date().getUTCFullYear()
   const copyRightYear = initalYear < currentYear ? `${initalYear} - ${currentYear}` : initalYear
@@ -41,21 +47,7 @@ export function AboutInfo ({ onClose }: Props) {
   }
 
   return (
-    <Pressable
-      style={{
-        position: 'absolute',
-        backgroundColor: 'rgba(0,0,0,0.6)',
-        width: '100%',
-        top: 0,
-        bottom: 0,
-        zIndex: 1000,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        padding: 16,
-      }}
-      onPress={handleClose}
-      ref={modalRef}
-    >
+    <Modal onClose={setShowAboutInfo}>
       <View
         style={{
           backgroundColor: THEME.colors.gray[100],
@@ -197,7 +189,7 @@ export function AboutInfo ({ onClose }: Props) {
           </SimpleButton>
         </View>
       </View>
-    </Pressable>
+    </Modal>
   )
 }
 
