@@ -16,7 +16,7 @@ export class QuestionUtils {
       case IOperator.multiply:
         return value1 * value2
       default:
-        return value1 / value2
+        return Number((value1 / value2).toFixed(2))
     }
   }
 }
