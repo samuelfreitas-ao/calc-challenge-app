@@ -44,7 +44,7 @@ export function AboutInfo ({ onClose }: Props) {
     <Pressable
       style={{
         position: 'absolute',
-        backgroundColor: 'rgba(0,0,0,0.8)',
+        backgroundColor: 'rgba(0,0,0,0.6)',
         width: '100%',
         top: 0,
         bottom: 0,
@@ -58,7 +58,7 @@ export function AboutInfo ({ onClose }: Props) {
     >
       <View
         style={{
-          backgroundColor: THEME.colors.white,
+          backgroundColor: THEME.colors.gray[100],
           padding: 8
         }}
       >
