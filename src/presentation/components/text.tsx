@@ -12,7 +12,7 @@ interface TextProp extends TextProps {
 export function Text ({ text, children, style, ...props }: TextProp) {
   return (
     <TextReact
-      style={[{ fontFamily: THEME.fonts.body }, style]}
+      style={[{ fontFamily: THEME.fonts.body, color: THEME.colors.gray[800] }, style]}
       {...props}
     >{text ?? children}</TextReact>
   )
