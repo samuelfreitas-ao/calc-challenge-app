@@ -27,7 +27,7 @@ export function TopBar ({ timer }: Props) {
       />
       <Text text={DateUtils.secondsToTime(timer)}
         style={{
-          fontFamily: THEME.fonts.medium,
+          fontFamily: THEME.fonts.heading,
           fontSize: THEME.fontSizes.md
         }}
       />
