@@ -1,5 +1,7 @@
 import { createContext, ReactNode, useState } from 'react'
 import { AboutInfo, History, Menu } from '../components'
+import { IQuestion } from '../../@types'
+import { QuestionUtils } from '../../utils'
 
 type AppContextType = {
   showMenu: boolean
@@ -7,7 +9,9 @@ type AppContextType = {
   showAboutInfo: boolean
   setShowAboutInfo: (showAboutInfo: boolean) => void
   showHistory: boolean
-  setShowHistory: (showHistory: boolean) => void
+  setShowHistory: (showHistory: boolean) => void,
+  historyList: IQuestion[]
+  setHistoryList: (historyList: IQuestion[]) => void
 }
 
 export const AppContext = createContext({} as AppContextType)
@@ -21,7 +25,7 @@ export const AppProvider = ({ children }: AppProviderType) => {
   const [showAboutInfo, setShowAboutInfo] = useState<boolean>(false)
   const [showHistory, setShowHistory] = useState<boolean>(false)
 
-
+  const [historyList, setHistoryList] = useState<IQuestion[]>(QuestionUtils.quetions)
 
   return (
     <AppContext.Provider value={{
@@ -31,6 +35,8 @@ export const AppProvider = ({ children }: AppProviderType) => {
       showMenu,
       setShowHistory,
       showHistory,
+      historyList,
+      setHistoryList
     }}>
       {showMenu && <Menu onClose={setShowMenu} />}
       {showAboutInfo && <AboutInfo />}

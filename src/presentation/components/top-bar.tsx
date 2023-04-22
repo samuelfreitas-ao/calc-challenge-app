@@ -1,14 +1,16 @@
 import { View, StatusBar } from 'react-native'
 import { THEME } from '../styles/theme'
-import { DateUtils, QuestionUtils } from '../../utils'
+import { DateUtils } from '../../utils'
 import { Points } from './points'
 import { Text } from './text'
+import { useApp } from '../../hooks'
 
 type Props = {
   timer: number
 }
 
 export function TopBar ({ timer }: Props) {
+  const { historyList } = useApp()
   return (
     <View style={{
       paddingTop: 24 + StatusBar.currentHeight || 0,
@@ -20,7 +22,7 @@ export function TopBar ({ timer }: Props) {
       alignItems: 'center'
     }}>
       <Points
-        points={QuestionUtils.quetions.filter(quest => !quest.isRight).length}
+        points={historyList.filter(quest => !quest.isRight).length}
         type="wrong"
       />
       <Text text={DateUtils.secondsToTime(timer)}
@@ -30,7 +32,7 @@ export function TopBar ({ timer }: Props) {
         }}
       />
       <Points
-        points={QuestionUtils.quetions.filter(quest => quest.isRight).length}
+        points={historyList.filter(quest => quest.isRight).length}
         type="right"
       />
     </View>

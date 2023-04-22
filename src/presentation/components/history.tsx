@@ -9,11 +9,12 @@ import { Text, IconX, Modal } from '.'
 import { useApp } from '../../hooks'
 
 export function History () {
-  const { setShowHistory } = useApp()
+  const { setShowHistory, setHistoryList } = useApp()
 
   const onRemove = (quest: IQuestion) => {
     QuestionUtils.quetions = [...QuestionUtils.quetions].
       filter(questItem => questItem.date != quest.date)
+    setHistoryList(QuestionUtils.quetions)
   }
   return (
     <Modal onClose={setShowHistory}>
