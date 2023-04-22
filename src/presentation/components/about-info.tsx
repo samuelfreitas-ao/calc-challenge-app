@@ -1,4 +1,4 @@
-import { GestureResponderEvent, Pressable, View, Linking, Alert } from "react-native"
+import { GestureResponderEvent, View, Alert, Image, Pressable } from "react-native"
 import { ReactNode, useRef } from "react"
 
 import * as MailComposer from 'expo-mail-composer'
@@ -8,6 +8,7 @@ import { THEME } from "../styles/theme"
 import { IconEmail, IconFacebook, IconGithub, IconInfo, IconUser, IconWhatsapp, IconCopyright, IconLinkedIn, IconTwitter } from "./icon"
 import { OpenLinkUtils } from "../../utils/open-link-util"
 import { AbouData } from "../../data"
+import { SimpleButton } from "./button"
 
 type Props = {
   onClose: (show: boolean) => void
@@ -135,7 +136,6 @@ export function AboutInfo ({ onClose }: Props) {
             borderBottomWidth: 1,
           }}
         >
-          {/* <IconInfo weight="fill" /> */}
           <Text
             text="Desenvolvedor"
             style={{
@@ -148,22 +148,22 @@ export function AboutInfo ({ onClose }: Props) {
           icon={<IconUser color={THEME.colors.gray[800]} weight="fill" />}
           value={developer.name}
         />
-        <Pressable
+        <SimpleButton
           onPress={handleMail}>
           <TextBox
             icon={<IconEmail color={THEME.colors.gray[800]} />}
             value={developer.email}
             isLink={true}
           />
-        </Pressable>
-        <Pressable
+        </SimpleButton>
+        <SimpleButton
           onPress={async () => handleOpenLink(links.github)}>
           <TextBox
             icon={<IconGithub color={THEME.colors.gray[800]} weight="fill" />}
             value={links.github.substring(8)}
             isLink={true}
           />
-        </Pressable>
+        </SimpleButton>
         <View
           style={{
             flexDirection: 'row',
@@ -174,22 +174,22 @@ export function AboutInfo ({ onClose }: Props) {
             borderTopColor: THEME.colors.gray[200],
             borderTopWidth: 1,
           }}>
-          <Pressable onPress={async () => handleOpenLink(links.whatsapp)}>
+          <SimpleButton onPress={async () => handleOpenLink(links.whatsapp)}>
             <IconWhatsapp color={THEME.colors.gray[800]} weight="fill"
               size={THEME.fontSizes["2xl"]} />
-          </Pressable>
-          <Pressable onPress={async () => handleOpenLink(links.linkedin)}>
+          </SimpleButton>
+          <SimpleButton onPress={async () => handleOpenLink(links.linkedin)}>
             <IconLinkedIn color={THEME.colors.gray[800]} weight="fill"
               size={THEME.fontSizes["2xl"]} />
-          </Pressable>
-          <Pressable onPress={async () => handleOpenLink(links.facebook)}>
+          </SimpleButton>
+          <SimpleButton onPress={async () => handleOpenLink(links.facebook)}>
             <IconFacebook color={THEME.colors.gray[800]} weight="fill"
               size={THEME.fontSizes["2xl"]} />
-          </Pressable>
-          <Pressable onPress={async () => handleOpenLink(links.twitter)}>
+          </SimpleButton>
+          <SimpleButton onPress={async () => handleOpenLink(links.twitter)}>
             <IconTwitter color={THEME.colors.gray[800]} weight="fill"
               size={THEME.fontSizes["2xl"]} />
-          </Pressable>
+          </SimpleButton>
         </View>
       </View>
     </Pressable>

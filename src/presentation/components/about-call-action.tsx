@@ -2,6 +2,7 @@ import { Pressable } from "react-native"
 import { View } from "react-native"
 import { IconQuestion } from "./icon"
 import { THEME } from "../styles/theme"
+import { SimpleButton } from "./button"
 
 type Props = {
   onPress: () => void
@@ -13,7 +14,7 @@ export function AboutCallAction ({ onPress }: Props) {
         flexDirection: 'row',
         justifyContent: 'flex-end',
       }}>
-      <Pressable
+      <SimpleButton
         style={{
           marginHorizontal: 24,
           marginTop: 24,
@@ -25,7 +26,7 @@ export function AboutCallAction ({ onPress }: Props) {
           weight='fill'
           size={46}
         />
-      </Pressable>
+      </SimpleButton>
     </View>
   )
 }

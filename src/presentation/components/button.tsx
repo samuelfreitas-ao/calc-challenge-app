@@ -25,3 +25,22 @@ export function Button ({ children, style, ...props }: ButtonProps) {
     </Pressable>
   )
 }
+
+export function SimpleButton ({ children, style, ...props }: ButtonProps) {
+  return (
+    <Pressable
+      style={({ pressed }) => [
+        {
+          alignItems: 'center',
+          gap: 8,
+          borderRadius: 8,
+          flexDirection: 'row',
+          opacity: pressed ? 0.7 : 1
+        }, style as any]}
+
+      {...props}
+    >
+      {children}
+    </Pressable>
+  )
+}
