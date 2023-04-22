@@ -10,16 +10,24 @@ import {
   Logo,
   Menu,
   MenuCallAction,
+  SimpleButton,
   Text,
   TopBar
 } from "../../components"
 import { DateUtils, NumberUtils, QuestionUtils } from '../../../utils'
 import { IOperator, IQuestion } from '../../../@types'
 import { useApp } from '../../../hooks'
-import { History } from '../../components/history'
+import { History, HistoryItem } from '../../components/history'
 
 export function Home () {
-  const { historyList, showMenu, showAboutInfo, showHistory } = useApp()
+  const {
+    historyList,
+    setShowHistory,
+    showMenu,
+    showAboutInfo,
+    showHistory
+  } = useApp()
+
   const [question, setQuestion] = useState<IQuestion>({} as IQuestion)
 
   const [answer, setAnswer] = useState<string>('')
@@ -207,6 +215,16 @@ export function Home () {
                 <IconHandPointing color={THEME.colors.gray[800]} weight='fill' />
             }
           </Button>
+          {!started && <View style={{ backgroundColor: THEME.colors.gray[200], marginTop: 16 }}>
+            <HistoryItem history={historyList?.at(-1)} hidenButtonDelete />
+            <SimpleButton onPress={() => setShowHistory(true)}>
+              <Text style={{
+                padding: 4,
+                color: THEME.colors.blue[800],
+                fontFamily: THEME.fonts.heading,
+              }} text='Ver histórico completo' />
+            </SimpleButton>
+          </View>}
         </View>
       </View>
     </View>
