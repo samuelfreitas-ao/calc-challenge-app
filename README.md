@@ -31,4 +31,10 @@ npm install
 npm run start
 ```
 
-[Layout do projecto](https://www.figma.com/file/XfpDaTpOYz9CcCWmNnQ0cs/Calc-Challenge?node-id=0%3A1&t=9aXlaxuU12LW8IkH-1)
+## Layout do projecto
+
+- [Aceder layout do projecto](https://www.figma.com/file/XfpDaTpOYz9CcCWmNnQ0cs/Calc-Challenge?node-id=0%3A1&t=9aXlaxuU12LW8IkH-1)
+
+## Baixe o aplicativo e instale no seu android
+
+- [Baixar o apk](https://www.mediafire.com/file/k0wt53qvoliaa30/Calc_Challenge.apk/file)
