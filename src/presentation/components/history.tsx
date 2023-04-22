@@ -19,11 +19,6 @@ import { useApp } from '../../hooks'
 export function History () {
   const { setShowHistory, setHistoryList, historyList } = useApp()
 
-  const onRemove = (quest: IQuestion) => {
-    QuestionUtils.quetions = [...QuestionUtils.quetions].
-      filter(questItem => questItem.date != quest.date)
-    setHistoryList(QuestionUtils.quetions)
-  }
   return (
     <Modal onClose={setShowHistory}>
       <View
@@ -56,61 +51,81 @@ export function History () {
             </View>
           )}
           renderItem={({ item }) => (
-            <View
-              style={{
-                borderBottomColor: THEME.colors.gray[500],
-                borderBottomWidth: 1,
-                padding: 8,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  gap: 4,
-                }}
-              >
-                <TextBox text={item.value1.toString()} />
-                <TextBox text={item.operator} />
-                <TextBox text={item.value2.toString()} />
-                <TextBox text={'='} />
-                <TextBox text={item.answer.toString()} />
-                {item.isRight ?
-                  <IconThumbsUp weight='fill' color={THEME.colors.green[700]} /> :
-                  <>
-                    <IconThumbsDown weight='fill' color={THEME.colors.red[700]} />
-                    <Text
-                      text={`Resposta ${item.rightAnswer}`}
-                      style={{
-                        marginLeft: 4,
-                        fontFamily: THEME.fonts.heading,
-                        textAlign: 'right',
-                      }}
-                    />
-                  </>
-                }
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: 'flex-end',
-                  }}>
-                  <SimpleButton onPress={() => onRemove(item)}>
-                    <IconTrash weight='fill' color={THEME.colors.gray[800]} />
-                  </SimpleButton>
-                </View>
-              </View>
-              <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 4,
-                marginTop: 4
-              }}>
-                <IconClock size={16} />
-                <Text text={DateUtils.getDate(new Date(item.date))} />
-              </View>
-            </View>
+            <HistoryItem history={item} />
           )}
         />
       </View>
     </Modal >
+  )
+}
+
+type HistoryItemProps = {
+  history: IQuestion
+  hidenButtonDelete?: boolean
+}
+
+export function HistoryItem ({ history, hidenButtonDelete }: HistoryItemProps) {
+  const { setHistoryList } = useApp()
+  const onRemove = (quest: IQuestion) => {
+    QuestionUtils.quetions = [...QuestionUtils.quetions].
+      filter(questItem => questItem.date != quest.date)
+    setHistoryList(QuestionUtils.quetions)
+  }
+  return (
+    <View
+      style={{
+        borderBottomColor: THEME.colors.gray[500],
+        borderBottomWidth: 1,
+        padding: 8,
+      }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          gap: 4,
+        }}
+      >
+        <TextBox text={history.value1.toString()} />
+        <TextBox text={history.operator} />
+        <TextBox text={history.value2.toString()} />
+        <TextBox text={'='} />
+        <TextBox text={history.answer.toString()} />
+        {history.isRight ?
+          <IconThumbsUp weight='fill' color={THEME.colors.green[700]} /> :
+          <>
+            <IconThumbsDown weight='fill' color={THEME.colors.red[700]} />
+            <Text
+              text={`Resposta ${history.rightAnswer}`}
+              style={{
+                marginLeft: 4,
+                fontFamily: THEME.fonts.heading,
+                textAlign: 'right',
+              }}
+            />
+          </>
+        }
+        {!hidenButtonDelete &&
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'flex-end',
+            }}>
+            <SimpleButton onPress={() => onRemove(history)}>
+              <IconTrash weight='fill' color={THEME.colors.gray[800]} />
+            </SimpleButton>
+          </View>
+        }
+      </View>
+
+      <View style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 4,
+        marginTop: 4
+      }}>
+        <IconClock size={16} />
+        <Text text={DateUtils.getDate(new Date(history.date))} />
+      </View>
+    </View>
   )
 }
 
