@@ -1,15 +1,22 @@
 import { View, Pressable, FlatList } from 'react-native'
 
 import { THEME } from '../styles/theme'
-import { QuestionUtils } from '../../utils'
+import { DateUtils, QuestionUtils } from '../../utils'
 import { IQuestion } from '../../@types'
 
-import { Text, IconX, Modal } from '.'
+import {
+  Text,
+  Modal,
+  IconTrash,
+  IconThumbsUp,
+  IconThumbsDown,
+  IconClock
+} from './'
 
 import { useApp } from '../../hooks'
 
 export function History () {
-  const { setShowHistory, setHistoryList } = useApp()
+  const { setShowHistory, setHistoryList, historyList } = useApp()
 
   const onRemove = (quest: IQuestion) => {
     QuestionUtils.quetions = [...QuestionUtils.quetions].
@@ -25,82 +32,83 @@ export function History () {
           rowGap: 4,
           marginTop: 8,
           backgroundColor: THEME.colors.gray[200],
-          padding: 4
+          padding: 16
         }}
       >
         <Text text={`Histórico (${QuestionUtils.quetions.length})`}
           style={{ minWidth: 15, fontFamily: THEME.fonts.heading, fontSize: THEME.fontSizes['xl'] }}
         />
         <FlatList
-          data={QuestionUtils.quetions}
+          data={historyList.sort((a, b) => {
+            const x = a.date.getTime(), y = b.date.getTime()
+            return x > y ? -1 : (x < y ? 1 : 0)
+          })}
           keyExtractor={item => item.date.getTime().toString()}
+          ListEmptyComponent={() => (
+            <View>
+              <Text text='Nenhum registo de momento. Inicie o desafio.'
+                style={{
+                  fontFamily: THEME.fonts.medium,
+                  fontSize: THEME.fontSizes.md
+                }}
+              />
+            </View>
+          )}
           renderItem={({ item }) => (
             <View
               style={{
-                flexDirection: 'row',
-                backgroundColor: THEME.colors.gray[700],
-                gap: 4,
+                borderBottomColor: THEME.colors.gray[500],
+                borderBottomWidth: 1,
                 padding: 8,
-              }}
-            >
-              <TextBox text={item.value1.toString()} />
-              <TextBox text={item.operator} />
-              <TextBox text={item.value2.toString()} />
-              <TextBox text={'='} />
-              <TextBox text={item.answer.toString()} />
-              <Text text={item.isRight ? 'Acertou' : 'Errou'}
+              }}>
+              <View
                 style={{
-                  marginLeft: 4,
-                  fontFamily: THEME.fonts.heading,
-                  textAlign: 'right',
+                  flexDirection: 'row',
+                  gap: 4,
                 }}
-              />
-              <Pressable onPress={() => onRemove(item)}
-                style={{
-                  flex: 1,
-                  alignItems: 'flex-end',
-                }}>
-                <IconX color={THEME.colors.red[800]} />
-              </Pressable>
+              >
+                <TextBox text={item.value1.toString()} />
+                <TextBox text={item.operator} />
+                <TextBox text={item.value2.toString()} />
+                <TextBox text={'='} />
+                <TextBox text={item.answer.toString()} />
+                {item.isRight ?
+                  <IconThumbsUp weight='fill' color={THEME.colors.green[700]} /> :
+                  <>
+                    <IconThumbsDown weight='fill' color={THEME.colors.red[700]} />
+                    <Text
+                      text={`Resposta ${item.rightAnswer}`}
+                      style={{
+                        marginLeft: 4,
+                        fontFamily: THEME.fonts.heading,
+                        textAlign: 'right',
+                      }}
+                    />
+                  </>
+                }
+
+                <Pressable onPress={() => onRemove(item)}
+                  style={{
+                    flex: 1,
+                    alignItems: 'flex-end',
+                  }}>
+                  <IconTrash weight='fill' color={THEME.colors.gray[800]} />
+                </Pressable>
+              </View>
+              <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 4,
+                marginTop: 4
+              }}>
+                <IconClock size={16} />
+                <Text text={DateUtils.getDate(new Date(item.date))} />
+              </View>
             </View>
           )}
         />
-        {/* {QuestionUtils.quetions.sort((a, b) => {
-          const x = a.date.getTime(), y = b.date.getTime()
-          //Order desc
-          return x > y ? -1 : (x < y ? 1 : 0)
-        }).map((quest, i) => (
-          <View key={i}
-            style={{
-              flexDirection: 'row',
-              backgroundColor: THEME.colors.gray[700],
-              gap: 4,
-              padding: 8,
-            }}
-          >
-            <TextBox text={quest.value1.toString()} />
-            <TextBox text={quest.operator} />
-            <TextBox text={quest.value2.toString()} />
-            <TextBox text={'='} />
-            <TextBox text={quest.answer.toString()} />
-            <Text text={quest.isRight ? 'Acertou' : 'Errou'}
-              style={{
-                marginLeft: 4,
-                fontFamily: THEME.fonts.heading,
-                textAlign: 'right',
-              }}
-            />
-            <Pressable onPress={() => onRemove(quest)}
-              style={{
-                flex: 1,
-                alignItems: 'flex-end',
-              }}>
-              <IconX color={THEME.colors.red[800]} />
-            </Pressable>
-          </View>
-        ))} */}
       </View>
-    </Modal>
+    </Modal >
   )
 }
 
@@ -111,7 +119,7 @@ type TextBoxProps = {
 function TextBox ({ text }: TextBoxProps) {
   return (
     <Text text={text}
-      style={{ minWidth: 15, fontFamily: THEME.fonts.heading }}
+      style={{ minWidth: 15, fontSize: THEME.fontSizes.md, fontFamily: THEME.fonts.heading }}
     />
   )
 }

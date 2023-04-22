@@ -1,7 +1,7 @@
 import {
+  Clock,
   ClockCounterClockwise,
   Copyright,
-  DotsThreeOutlineVertical,
   Envelope,
   FacebookLogo,
   GithubLogo,
@@ -13,6 +13,7 @@ import {
   Question,
   ThumbsUp,
   ThumbsDown,
+  Trash,
   TwitterLogo,
   User,
   WhatsappLogo,
@@ -20,6 +21,7 @@ import {
   IconProps
 } from 'phosphor-react-native'
 
+export const IconClock = (props: IconProps) => <Clock {...props} />
 export const IconCopyright = (props: IconProps) => <Copyright {...props} />
 export const IconEmail = (props: IconProps) => <Envelope {...props} />
 export const IconFacebook = (props: IconProps) => <FacebookLogo {...props} />
@@ -33,6 +35,7 @@ export const IconPaperPlaneRight = (props: IconProps) => <PaperPlaneRight {...pr
 export const IconQuestion = (props: IconProps) => <Question {...props} />
 export const IconThumbsDown = (props: IconProps) => <ThumbsDown {...props} />
 export const IconThumbsUp = (props: IconProps) => <ThumbsUp {...props} />
+export const IconTrash = (props: IconProps) => <Trash {...props} />
 export const IconTwitter = (props: IconProps) => <TwitterLogo {...props} />
 export const IconUser = (props: IconProps) => <User {...props} />
 export const IconWhatsapp = (props: IconProps) => <WhatsappLogo {...props} />

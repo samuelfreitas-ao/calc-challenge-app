@@ -7,13 +7,9 @@ import { Logo } from "./logo"
 import { SimpleButton } from "./button"
 import { useApp } from "../../hooks"
 
-type MenuProps = {
-  show?: boolean
-  onClose: (open: boolean) => void
-}
 
-export function Menu ({ show, onClose }: MenuProps) {
-  const { setShowAboutInfo, setShowHistory } = useApp()
+export function Menu () {
+  const { setShowAboutInfo, setShowHistory, setShowMenu } = useApp()
   const menuRef = useRef()
 
   const autoClose = (event: GestureResponderEvent) => {
@@ -21,7 +17,7 @@ export function Menu ({ show, onClose }: MenuProps) {
   }
 
   const handleClose = () => {
-    onClose(false)
+    setShowMenu(false)
   }
 
   const handleShowAboutInfo = () => {

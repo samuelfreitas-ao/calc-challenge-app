@@ -1,7 +1,7 @@
 export * from './about-info'
 export * from './about-call-action'
 export * from './button'
-export * from './history'
+// export * from './history'
 export * from './icon'
 export * from './logo'
 export * from './menu'

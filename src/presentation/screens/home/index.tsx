@@ -1,27 +1,31 @@
 import { useState, useEffect } from 'react'
-import { Alert, View, TextInput, ScrollView, StatusBar } from "react-native"
+import { Alert, View, TextInput } from "react-native"
 
 import { THEME } from "../../styles/theme"
 import {
+  AboutInfo,
   Button,
   IconHandPointing,
   IconPaperPlaneRight,
   Logo,
+  Menu,
   MenuCallAction,
   Text,
   TopBar
 } from "../../components"
 import { DateUtils, NumberUtils, QuestionUtils } from '../../../utils'
 import { IOperator, IQuestion } from '../../../@types'
+import { useApp } from '../../../hooks'
+import { History } from '../../components/history'
 
 export function Home () {
+  const { historyList, showMenu, showAboutInfo, showHistory } = useApp()
   const [question, setQuestion] = useState<IQuestion>({} as IQuestion)
 
   const [answer, setAnswer] = useState<string>('')
 
   const [timer, setTimer] = useState<number>(0)
   const [started, setStarted] = useState<boolean>(false)
-  const [isFirstQuestion, setIsFirstQuestion] = useState<boolean>(true)
 
   useEffect(() => {
     if (!started) return
@@ -42,7 +46,6 @@ export function Home () {
   }
 
   const generateQuestion = () => {
-    setIsFirstQuestion(false)
     handleStart()
     const operators = [IOperator.plus, IOperator.multiply, IOperator.division, IOperator.minus]
 
@@ -75,16 +78,17 @@ export function Home () {
       return
     }
 
-    const rightResult = QuestionUtils.execCalc(question.value1, question.value2, question.operator)
-    const isRight = rightResult === Number(answer)
+    const rightAnswer = QuestionUtils.execCalc(question.value1, question.value2, question.operator)
+    const isRight = rightAnswer === Number(answer)
 
-    const resultMessage = `Resposta certa:\t ${buildOperation({ ...question, answer: rightResult })}\n` +
+    const resultMessage = `Resposta certa:\t ${buildOperation({ ...question, answer: rightAnswer })}\n` +
       `Sua resposta:\t\t\t  ${buildOperation({ ...question, answer: Number(answer) })}`
 
     QuestionUtils.add({
       ...question,
       isRight,
       answer: Number(answer),
+      rightAnswer,
       seconds: timer,
       time: DateUtils.secondsToTime(timer),
       date: new Date()
@@ -106,6 +110,9 @@ export function Home () {
     }}
     >
       <TopBar timer={timer} />
+      {showMenu && <Menu />}
+      {showAboutInfo && <AboutInfo />}
+      {showHistory && <History />}
       <View
         style={{
           position: 'relative',
@@ -148,7 +155,7 @@ export function Home () {
               alignItems: 'center'
             }}>
             <Text
-              text={started ? 'Qual é o resultado?' : (isFirstQuestion ? 'Comece o desafio' : 'Continue o desafio')}
+              text={started ? 'Qual é o resultado?' : (historyList.length < 1 ? 'Comece o desafio' : 'Continue o desafio')}
               style={{
                 color: THEME.colors.gray[200],
                 fontSize: THEME.fontSizes.xl,
@@ -188,7 +195,7 @@ export function Home () {
             }}
             onPress={handleConfirme}
           >
-            <Text text={started ? 'CONFIRMAR' : (isFirstQuestion ? 'Iniciar desafio' : 'Próxima questão')}
+            <Text text={started ? 'CONFIRMAR' : (historyList.length < 1 ? 'Iniciar desafio' : 'Próxima questão')}
               style={{
                 fontSize: THEME.fontSizes.lg,
                 fontFamily: THEME.fonts.heading,

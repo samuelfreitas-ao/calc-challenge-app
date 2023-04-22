@@ -1,26 +1,17 @@
-import { GestureResponderEvent, View, Alert, TouchableOpacity, Pressable } from "react-native"
-import { ReactNode, useRef } from "react"
+import { View, Alert, TouchableOpacity } from "react-native"
+import { ReactNode } from "react"
 
 import * as MailComposer from 'expo-mail-composer'
 
 import { Text } from "./text"
 import { THEME } from "../styles/theme"
-import {
-  IconEmail,
-  IconFacebook,
-  IconGithub,
-  IconInfo,
-  IconUser,
-  IconWhatsapp,
-  IconCopyright,
-  IconLinkedIn,
-  IconTwitter,
-  SimpleButton,
-  Modal
-} from "./"
+
 import { OpenLinkUtils } from "../../utils/open-link-util"
 import { AbouData } from "../../data"
 import { useApp } from "../../hooks"
+import { Modal } from "./modal"
+import { IconCopyright, IconEmail, IconFacebook, IconGithub, IconInfo, IconLinkedIn, IconTwitter, IconUser, IconWhatsapp } from "./icon"
+import { SimpleButton } from "./button"
 
 export function AboutInfo () {
   const { setShowAboutInfo } = useApp()
