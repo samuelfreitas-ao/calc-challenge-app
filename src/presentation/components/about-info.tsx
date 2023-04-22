@@ -1,4 +1,4 @@
-import { GestureResponderEvent, View, Alert, Image, Pressable } from "react-native"
+import { GestureResponderEvent, View, Alert, TouchableOpacity, Pressable } from "react-native"
 import { ReactNode, useRef } from "react"
 
 import * as MailComposer from 'expo-mail-composer'
@@ -144,26 +144,31 @@ export function AboutInfo ({ onClose }: Props) {
             }}
           />
         </View>
-        <TextBox
-          icon={<IconUser color={THEME.colors.gray[800]} weight="fill" />}
-          value={developer.name}
-        />
-        <SimpleButton
-          onPress={handleMail}>
+        <View
+          style={{
+            rowGap: 4
+          }}>
           <TextBox
-            icon={<IconEmail color={THEME.colors.gray[800]} />}
-            value={developer.email}
-            isLink={true}
+            icon={<IconUser color={THEME.colors.gray[800]} weight="fill" />}
+            value={developer.name}
           />
-        </SimpleButton>
-        <SimpleButton
-          onPress={async () => handleOpenLink(links.github)}>
-          <TextBox
-            icon={<IconGithub color={THEME.colors.gray[800]} weight="fill" />}
-            value={links.github.substring(8)}
-            isLink={true}
-          />
-        </SimpleButton>
+          <TouchableOpacity
+            onPress={handleMail}>
+            <TextBox
+              icon={<IconEmail color={THEME.colors.gray[800]} />}
+              value={developer.email}
+              isLink={true}
+            />
+          </TouchableOpacity>
+          <SimpleButton
+            onPress={async () => handleOpenLink(links.github)}>
+            <TextBox
+              icon={<IconGithub color={THEME.colors.gray[800]} weight="fill" />}
+              value={links.github.substring(8)}
+              isLink={true}
+            />
+          </SimpleButton>
+        </View>
         <View
           style={{
             flexDirection: 'row',

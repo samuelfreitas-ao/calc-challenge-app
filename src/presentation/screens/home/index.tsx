@@ -1,8 +1,22 @@
 import { useState, useEffect } from 'react'
-import { Alert, View, TextInput, ScrollView } from "react-native"
+import { Alert, View, TextInput, ScrollView, StatusBar } from "react-native"
 
 import { THEME } from "../../styles/theme"
-import { AboutCallAction, AboutInfo, Button, History, IconHandPointing, IconPaperPlaneRight, IconQuestion, Logo, Points, Text, TopBar } from "../../components"
+import {
+  AboutCallAction,
+  AboutInfo,
+  Button,
+  History,
+  IconHandPointing,
+  IconPaperPlaneRight,
+  IconQuestion,
+  Logo,
+  Menu,
+  MenuCallAction,
+  Points,
+  Text,
+  TopBar
+} from "../../components"
 import { DateUtils, NumberUtils, QuestionUtils } from '../../../utils'
 import { IOperator, IQuestion } from '../../../@types'
 
@@ -16,6 +30,7 @@ export function Home () {
   const [isFirstQuestion, setIsFirstQuestion] = useState<boolean>(true)
 
   const [showAboutInfo, setShowAboutInfo] = useState<boolean>(false)
+  const [showMenu, setShowMenu] = useState<boolean>(false)
 
   useEffect(() => {
     if (!started) return
@@ -38,7 +53,7 @@ export function Home () {
   const generateQuestion = () => {
     setIsFirstQuestion(false)
     handleStart()
-    const operators = [IOperator.plus, IOperator.multiply, IOperator.minus, IOperator.division]
+    const operators = [IOperator.plus, IOperator.multiply, IOperator.division, IOperator.minus]
 
     setQuestion({
       ...question,
@@ -96,109 +111,120 @@ export function Home () {
     setShowAboutInfo(true)
   }
 
+  const handleShowMenu = () => {
+    setShowMenu(true)
+  }
+
   return (
     <View style={{
       flex: 1,
       backgroundColor: THEME.colors.gray[700],
-      // paddingTop: StatusBar.currentHeight || 0,
       position: 'relative'
     }}
     >
       <TopBar timer={timer} />
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingHorizontal: 24,
+          gap: 24,
+          paddingTop: 16,
+          paddingBottom: 16,
+          borderBottomColor: THEME.colors.gray[200],
+          borderBottomWidth: 1,
+          position: 'relative'
+        }}
+      >
+        <MenuCallAction onPress={handleShowMenu} />
+        <View style={{
+          position: 'absolute',
+          zIndex: -1,
+          alignItems: 'center',
+          left: -16,
+          right: -16,
+          justifyContent: 'center',
+          paddingVertical: 12
+        }}>
+          <Logo size='md' />
+        </View>
+      </View>
+
+      {showMenu && <Menu onClose={setShowMenu} />}
 
       {showAboutInfo && <AboutInfo onClose={setShowAboutInfo} />}
 
-      <AboutCallAction onPress={handleAboutInfo} />
-
+      {/* <AboutCallAction onPress={handleShowMenu} /> */}
       <View
         style={{
-          rowGap: 24,
+          flex: 1,
+          marginVertical: 5,
+          justifyContent: 'center'
         }}
       >
-        <ScrollView>
+        <View style={{
+          padding: 24,
+        }}>
           <View
             style={{
-              height: '100%',
-              flex: 1,
-              marginVertical: 5,
-            }}
-          >
-            <View style={{
-              alignItems: 'center',
-              paddingVertical: 16,
-              marginTop: 8
+              marginBottom: 24,
+              rowGap: 4,
+              alignItems: 'center'
             }}>
-              <Logo />
-            </View>
-
-            <View style={{
-              justifyContent: 'center',
-              flexDirection: 'column',
-              padding: 24,
-            }}>
-              <View
-                style={{
-                  marginBottom: 24,
-                  rowGap: 4,
-                  alignItems: 'center'
-                }}>
-                <Text
-                  text={started ? 'Qual é o resultado?' : (isFirstQuestion ? 'Comece o desafio' : 'Continue o desafio')}
-                  style={{
-                    color: THEME.colors.gray[200],
-                    fontSize: THEME.fontSizes.xl,
-                    fontFamily: THEME.fonts.medium,
-                  }}
-                />
-                {started && <Text
-                  text={buildOperation(question)}
-                  style={{
-                    color: THEME.colors.gray[200],
-                    fontSize: THEME.fontSizes["2xl"],
-                    fontFamily: THEME.fonts.medium,
-                  }}
-                />}
-              </View>
-
-              {started && <View>
-                <TextInput
-                  placeholder="Informe o resultado"
-                  value={answer}
-                  style={{
-                    backgroundColor: THEME.colors.gray[800],
-                    color: THEME.colors.gray[200],
-                    padding: 16,
-                    fontSize: THEME.fontSizes.lg,
-                    marginBottom: 24,
-                    borderRadius: 8
-                  }}
-                  placeholderTextColor={THEME.colors.gray[600]}
-                  keyboardType="numeric"
-                  onChangeText={handleInputChange}
-                />
-              </View>}
-              <Button
-                style={{
-                  backgroundColor: THEME.colors.gray[500]
-                }}
-                onPress={handleConfirme}
-              >
-                <Text text={started ? 'CONFIRMAR' : (isFirstQuestion ? 'Iniciar desafio' : 'Próxima questão')}
-                  style={{
-                    fontSize: THEME.fontSizes.lg,
-                    fontFamily: THEME.fonts.heading,
-                    color: THEME.colors.gray[800]
-                  }}
-                />
-                {
-                  started ? <IconPaperPlaneRight color={THEME.colors.gray[800]} /> :
-                    <IconHandPointing color={THEME.colors.gray[800]} weight='fill' />
-                }
-              </Button>
-              <History />
-            </View>
+            <Text
+              text={started ? 'Qual é o resultado?' : (isFirstQuestion ? 'Comece o desafio' : 'Continue o desafio')}
+              style={{
+                color: THEME.colors.gray[200],
+                fontSize: THEME.fontSizes.xl,
+                fontFamily: THEME.fonts.medium,
+              }}
+            />
+            {started && <Text
+              text={buildOperation(question)}
+              style={{
+                color: THEME.colors.gray[200],
+                fontSize: THEME.fontSizes["2xl"],
+                fontFamily: THEME.fonts.medium,
+              }}
+            />}
           </View>
-        </ScrollView>
+
+          {started && <View>
+            <TextInput
+              placeholder="Informe o resultado"
+              value={answer}
+              style={{
+                backgroundColor: THEME.colors.gray[800],
+                color: THEME.colors.gray[200],
+                padding: 16,
+                fontSize: THEME.fontSizes.lg,
+                marginBottom: 24,
+                borderRadius: 8
+              }}
+              placeholderTextColor={THEME.colors.gray[600]}
+              keyboardType="numeric"
+              onChangeText={handleInputChange}
+            />
+          </View>}
+          <Button
+            style={{
+              backgroundColor: THEME.colors.gray[500]
+            }}
+            onPress={handleConfirme}
+          >
+            <Text text={started ? 'CONFIRMAR' : (isFirstQuestion ? 'Iniciar desafio' : 'Próxima questão')}
+              style={{
+                fontSize: THEME.fontSizes.lg,
+                fontFamily: THEME.fonts.heading,
+                color: THEME.colors.gray[800]
+              }}
+            />
+            {
+              started ? <IconPaperPlaneRight color={THEME.colors.gray[800]} /> :
+                <IconHandPointing color={THEME.colors.gray[800]} weight='fill' />
+            }
+          </Button>
+          {/* <History /> */}
+        </View>
       </View>
     </View>
   )

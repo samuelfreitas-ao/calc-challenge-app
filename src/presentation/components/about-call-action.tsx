@@ -1,4 +1,3 @@
-import { Pressable } from "react-native"
 import { View } from "react-native"
 import { IconQuestion } from "./icon"
 import { THEME } from "../styles/theme"
@@ -13,13 +12,10 @@ export function AboutCallAction ({ onPress }: Props) {
       style={{
         flexDirection: 'row',
         justifyContent: 'flex-end',
+        backgroundColor: 'black',
+        padding: 24
       }}>
       <SimpleButton
-        style={{
-          marginHorizontal: 24,
-          marginTop: 24,
-          borderRadius: 100
-        }}
         onPress={onPress}>
         <IconQuestion
           color={THEME.colors.gray[200]}

@@ -11,6 +11,8 @@ type Props = {
 export function TopBar ({ timer }: Props) {
   return (
     <View style={{
+      // paddingTop: 24,
+
       paddingTop: 24 + StatusBar.currentHeight || 0,
       paddingHorizontal: 24,
       paddingBottom: 24,

@@ -1,9 +1,10 @@
 import { ReactNode } from "react"
-import { Pressable, PressableProps } from "react-native"
+import { Pressable, PressableProps, TouchableOpacity, TouchableOpacityProps } from "react-native"
 
 interface ButtonProps extends PressableProps {
   children: ReactNode
 }
+
 
 export function Button ({ children, style, ...props }: ButtonProps) {
   return (
@@ -26,21 +27,21 @@ export function Button ({ children, style, ...props }: ButtonProps) {
   )
 }
 
-export function SimpleButton ({ children, style, ...props }: ButtonProps) {
+interface SimpleButtonProps extends TouchableOpacityProps {
+  children: ReactNode
+}
+export function SimpleButton ({ children, style, ...props }: SimpleButtonProps) {
   return (
-    <Pressable
-      style={({ pressed }) => [
-        {
-          alignItems: 'center',
-          gap: 8,
-          borderRadius: 8,
-          flexDirection: 'row',
-          opacity: pressed ? 0.7 : 1
-        }, style as any]}
-
+    <TouchableOpacity
+      style={{
+        alignItems: 'center',
+        gap: 8,
+        borderRadius: 8,
+        flexDirection: 'row',
+      }}
       {...props}
     >
       {children}
-    </Pressable>
+    </TouchableOpacity>
   )
 }
