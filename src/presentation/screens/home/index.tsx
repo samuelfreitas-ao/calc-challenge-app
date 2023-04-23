@@ -215,8 +215,8 @@ export function Home () {
                 <IconHandPointing color={THEME.colors.gray[800]} weight='fill' />
             }
           </Button>
-          {!started && <View style={{ backgroundColor: THEME.colors.gray[200], marginTop: 16 }}>
-            <HistoryItem history={historyList?.at(-1)} hidenButtonDelete />
+          {!started && historyList?.length > 0 && <View style={{ backgroundColor: THEME.colors.gray[200], marginTop: 16 }}>
+            <HistoryItem history={historyList[historyList.length - 1]} hidenButtonDelete />
             <SimpleButton onPress={() => setShowHistory(true)}>
               <Text style={{
                 padding: 4,
