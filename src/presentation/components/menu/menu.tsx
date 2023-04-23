@@ -52,14 +52,14 @@ export function Menu () {
           onPress={handleShowHistory}
         />
         <MenuItem
-          text="Sobre"
-          icon={<IconInfo color={THEME.colors.gray[200]} />}
-          onPress={handleShowAboutInfo}
-        />
-        <MenuItem
           text="Tabuada"
           icon={<IconCalculator color={THEME.colors.gray[200]} />}
           onPress={handleShowMultiplicationTable}
+        />
+        <MenuItem
+          text="Sobre"
+          icon={<IconInfo color={THEME.colors.gray[200]} />}
+          onPress={handleShowAboutInfo}
         />
       </View>
     </Pressable>
