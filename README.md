@@ -41,4 +41,4 @@ npm run start
 
 ## Assista o vídeo de apresentação do app
 
-[Assistir apresentação](https://youtu.be/IvNon73dEjU)
+- [Assistir apresentação](https://youtu.be/IvNon73dEjU)
