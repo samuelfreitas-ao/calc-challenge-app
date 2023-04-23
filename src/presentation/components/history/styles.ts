@@ -8,7 +8,8 @@ export default StyleSheet.create({
     rowGap: 4,
     marginTop: 8,
     backgroundColor: THEME.colors.gray[200],
-    padding: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 16,
   },
   boxTitle: {
     flexDirection: 'row',
