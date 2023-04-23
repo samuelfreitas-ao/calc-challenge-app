@@ -1,4 +1,4 @@
-import { TextProps } from "react-native"
+import { StyleSheet, TextProps } from "react-native"
 import { Text as TextReact } from "react-native"
 import { ReactNode } from "react"
 
@@ -11,9 +11,12 @@ interface TextProp extends TextProps {
 
 export function Text ({ text, children, style, ...props }: TextProp) {
   return (
-    <TextReact
-      style={[{ fontFamily: THEME.fonts.body, color: THEME.colors.gray[800] }, style]}
-      {...props}
-    >{text ?? children}</TextReact>
+    <TextReact style={[styles.container, style]} {...props}>
+      {text ?? children}
+    </TextReact>
   )
 }
+
+const styles = StyleSheet.create({
+  container: { fontFamily: THEME.fonts.body, color: THEME.colors.gray[800] }
+})
