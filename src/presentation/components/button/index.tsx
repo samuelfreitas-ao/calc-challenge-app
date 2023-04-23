@@ -1,3 +1,5 @@
+export * from './simple-button'
+
 import { ReactNode } from "react"
 import {
   Pressable,
@@ -8,8 +10,6 @@ import {
 interface ButtonProps extends PressableProps {
   children: ReactNode
 }
-
-export * from './simple-button'
 
 export function Button ({ children, style, ...props }: ButtonProps) {
   return (

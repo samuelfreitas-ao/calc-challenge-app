@@ -1,3 +1,5 @@
+export * from './history-item'
+
 import { View, FlatList } from 'react-native'
 
 import Styles from './styles'
