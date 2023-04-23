@@ -15,8 +15,7 @@ export function AboutTextBox ({ value, icon, isLink }: TextBoxProps) {
   return (
     <View style={styles.container}>
       {icon}
-      <Text style={[styles.text, { textDecorationLine, color }]}
-      >{value}</Text>
+      <Text text={value} style={[styles.text, { textDecorationLine, color }]} />
     </View>
   )
 }
