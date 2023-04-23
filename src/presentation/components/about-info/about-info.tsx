@@ -56,7 +56,7 @@ export function AboutInfo () {
           <View style={Styles.boxTitle}>
             <IconInfo weight="fill" />
             <Text
-              text={app.name}
+              text={`Sobre a ${app.name}`}
               style={Styles.title}
             />
           </View>
