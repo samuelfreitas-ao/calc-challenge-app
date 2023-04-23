@@ -31,15 +31,34 @@ export function History () {
           padding: 16
         }}
       >
-        <Text text={`Histórico (${QuestionUtils.quetions.length})`}
-          style={{ minWidth: 15, fontFamily: THEME.fonts.heading, fontSize: THEME.fontSizes['xl'] }}
-        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <Text text={`Histórico (${QuestionUtils.quetions.length})`}
+            style={{ minWidth: 15, fontFamily: THEME.fonts.heading, fontSize: THEME.fontSizes['xl'] }}
+          />
+          <SimpleButton onPress={() => setShowHistory(false)}>
+            <Text
+              text='Fechar'
+              style={{
+                fontFamily: THEME.fonts.heading,
+                backgroundColor: THEME.colors.gray[500],
+                padding: 8
+              }}
+            />
+          </SimpleButton>
+        </View>
         <FlatList
           data={historyList.sort((a, b) => {
             const x = a.date.getTime(), y = b.date.getTime()
             return x > y ? -1 : (x < y ? 1 : 0)
           })}
           keyExtractor={item => item.date.getTime().toString()}
+          renderItem={({ item, index }) => (
+            <HistoryItem history={item} index={index + 1} />
+          )}
           ListEmptyComponent={() => (
             <View>
               <Text text='Nenhum registo de momento. Inicie o desafio.'
@@ -50,9 +69,6 @@ export function History () {
               />
             </View>
           )}
-          renderItem={({ item }) => (
-            <HistoryItem history={item} />
-          )}
         />
       </View>
     </Modal >
@@ -62,9 +78,10 @@ export function History () {
 type HistoryItemProps = {
   history: IQuestion
   hidenButtonDelete?: boolean
+  index?: number
 }
 
-export function HistoryItem ({ history, hidenButtonDelete }: HistoryItemProps) {
+export function HistoryItem ({ history, hidenButtonDelete, index }: HistoryItemProps) {
   const { setHistoryList } = useApp()
   const onRemove = (quest: IQuestion) => {
     QuestionUtils.quetions = [...QuestionUtils.quetions].
@@ -72,7 +89,7 @@ export function HistoryItem ({ history, hidenButtonDelete }: HistoryItemProps) {
     setHistoryList(QuestionUtils.quetions)
   }
   return (
-    <View
+    <Pressable
       style={{
         borderBottomColor: THEME.colors.gray[500],
         borderBottomWidth: 1,
@@ -82,8 +99,11 @@ export function HistoryItem ({ history, hidenButtonDelete }: HistoryItemProps) {
         style={{
           flexDirection: 'row',
           gap: 4,
+          marginBottom: 4,
+          alignItems: 'center',
         }}
       >
+        {index && <Text text={`(${index})`} />}
         <TextBox text={history.value1.toString()} />
         <TextBox text={history.operator} />
         <TextBox text={history.value2.toString()} />
@@ -94,7 +114,7 @@ export function HistoryItem ({ history, hidenButtonDelete }: HistoryItemProps) {
           <>
             <IconThumbsDown weight='fill' color={THEME.colors.red[700]} />
             <Text
-              text={`Resposta ${history.rightAnswer}`}
+              text={`Resposta certa: ${history.rightAnswer}`}
               style={{
                 marginLeft: 4,
                 fontFamily: THEME.fonts.heading,
@@ -115,7 +135,9 @@ export function HistoryItem ({ history, hidenButtonDelete }: HistoryItemProps) {
           </View>
         }
       </View>
-
+      <View>
+        <Text text={`Tempo de resposta: ${history.time}`} />
+      </View>
       <View style={{
         flexDirection: 'row',
         alignItems: 'center',
@@ -125,7 +147,7 @@ export function HistoryItem ({ history, hidenButtonDelete }: HistoryItemProps) {
         <IconClock size={16} />
         <Text text={DateUtils.getDate(new Date(history.date))} />
       </View>
-    </View>
+    </Pressable>
   )
 }
 

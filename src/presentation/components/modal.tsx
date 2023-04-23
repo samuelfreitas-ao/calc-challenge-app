@@ -26,7 +26,7 @@ export function Modal ({ onClose, children }: Props) {
         justifyContent: 'center',
         paddingTop: 24 + StatusBar.currentHeight || 0,
         paddingHorizontal: 16,
-        paddingBottom: 24,
+        paddingBottom: 24 + StatusBar.currentHeight || 0,
       }}
       onPress={handleClose}
       ref={modalRef}

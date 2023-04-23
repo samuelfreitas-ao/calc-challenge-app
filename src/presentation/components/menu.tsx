@@ -7,6 +7,38 @@ import { Logo } from "./logo"
 import { SimpleButton } from "./button"
 import { useApp } from "../../hooks"
 
+export function MenuBar () {
+  const { showMenu } = useApp()
+  return (
+    <>
+      {showMenu && <Menu />}
+      <View
+        style={{
+          position: 'relative',
+          flexDirection: 'row',
+          paddingHorizontal: 24,
+          paddingVertical: 16,
+          gap: 24,
+          borderBottomColor: THEME.colors.gray[200],
+          borderBottomWidth: 1,
+        }}
+      >
+        <MenuCallAction />
+        <View style={{
+          position: 'absolute',
+          zIndex: -1,
+          left: -16,
+          right: -16,
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingVertical: 12
+        }}>
+          <Logo size='md' />
+        </View>
+      </View>
+    </>
+  )
+}
 
 export function Menu () {
   const { setShowAboutInfo, setShowHistory, setShowMenu } = useApp()
