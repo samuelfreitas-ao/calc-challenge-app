@@ -1,8 +1,6 @@
 import { createContext, ReactNode, useState } from 'react'
-import { AboutInfo, Menu } from '../components'
 import { IQuestion } from '../../@types'
 import { QuestionUtils } from '../../utils'
-import { History } from '../components/history'
 
 type AppContextType = {
   showMenu: boolean
