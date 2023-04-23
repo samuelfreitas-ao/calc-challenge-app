@@ -4,10 +4,11 @@ import {
   GestureResponderEvent,
   View,
   Pressable,
+  Alert,
 } from "react-native"
 
 import { THEME } from "../../styles/theme"
-import { IconHistory, IconInfo } from "../icon"
+import { IconCalculator, IconHistory, IconInfo } from "../icon"
 import { Logo } from "../logo"
 import { useApp } from "../../../hooks"
 import { MenuItem } from './menu-item'
@@ -35,6 +36,10 @@ export function Menu () {
     setShowHistory(true)
   }
 
+  const handleShowMultiplicationTable = () => {
+    Alert.alert('Tabuada', 'Essa funcionalidade está em desenvolvimento.\n\nPoderá ter acesso a uma lista de tabuada para melhorar a sua capacidade em resolver problemas matemáticos.')
+  }
+
   return (
     <Pressable style={styles.container} onPress={autoClose} ref={menuRef}>
       <View style={styles.nav}>
@@ -50,6 +55,11 @@ export function Menu () {
           text="Sobre"
           icon={<IconInfo color={THEME.colors.gray[200]} />}
           onPress={handleShowAboutInfo}
+        />
+        <MenuItem
+          text="Tabuada"
+          icon={<IconCalculator color={THEME.colors.gray[200]} />}
+          onPress={handleShowMultiplicationTable}
         />
       </View>
     </Pressable>

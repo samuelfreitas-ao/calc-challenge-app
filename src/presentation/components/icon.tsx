@@ -1,4 +1,5 @@
 import {
+  Calculator,
   Clock,
   ClockCounterClockwise,
   Copyright,
@@ -21,6 +22,7 @@ import {
   IconProps
 } from 'phosphor-react-native'
 
+export const IconCalculator = (props: IconProps) => <Calculator {...props} />
 export const IconClock = (props: IconProps) => <Clock {...props} />
 export const IconCopyright = (props: IconProps) => <Copyright {...props} />
 export const IconEmail = (props: IconProps) => <Envelope {...props} />
