@@ -14,8 +14,8 @@ import {
   TopBar
 } from "../../components"
 import { History, HistoryItem } from '../../components/history'
-import { DateUtils, NumberUtils, QuestionUtils } from '../../../utils'
-import { IOperator, IQuestion } from '../../../@types'
+import { DateUtils, QuestionUtils } from '../../../utils'
+import { IQuestion } from '../../../@types'
 import { useApp } from '../../../hooks'
 
 export function Home () {
