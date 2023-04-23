@@ -11,9 +11,7 @@ interface TextProp extends TextProps {
 
 export function Text ({ text, children, style, ...props }: TextProp) {
   return (
-    <TextReact style={[styles.container, style]} {...props}>
-      {text ?? children}
-    </TextReact>
+    <TextReact style={[styles.container, style]} {...props}>{text ?? children}</TextReact>
   )
 }
 
