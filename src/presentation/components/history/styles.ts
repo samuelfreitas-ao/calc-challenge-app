@@ -16,7 +16,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    minWidth: 15,
     fontFamily: THEME.fonts.heading,
     fontSize: THEME.fontSizes['xl'],
   },

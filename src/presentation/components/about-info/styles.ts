@@ -3,7 +3,7 @@ import { THEME } from '../../styles/theme'
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: THEME.colors.gray[100],
+    backgroundColor: THEME.colors.gray[200],
     padding: 16,
   },
   box: {
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     gap: 4,
     marginBottom: 8,
     paddingBottom: 4,
-    borderBottomColor: THEME.colors.gray[200],
+    borderBottomColor: THEME.colors.gray[500],
     borderBottomWidth: 1,
   },
   title: {
@@ -34,7 +34,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     columnGap: 16,
     paddingTop: 8,
-    borderTopColor: THEME.colors.gray[200],
+    borderTopColor: THEME.colors.gray[500],
     borderTopWidth: 1,
   },
 })
