@@ -9,9 +9,9 @@ export type IQuestion = {
   value2: number
   operator: IOperator
   answer: number
-  rightAnswer: number
+  correctAnswer: number
 
-  isRight: boolean
+  isCorrect: boolean
   seconds: number
   time: string
 
