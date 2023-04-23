@@ -42,7 +42,7 @@ export function HistoryItem ({ history, hidenButtonDelete, index }: HistoryItemP
           <>
             <IconThumbsDown weight='fill' color={THEME.colors.red[700]} />
             <Text
-              text={`Resposta certa: ${history.correctAnswer}`}
+              text={`Resposta: ${history.correctAnswer}`}
               style={Styles.rightAnswer}
             />
           </>
