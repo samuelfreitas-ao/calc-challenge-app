@@ -23,11 +23,12 @@ export function MenuItem ({ text, icon, onPress }: MenuItemProps) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     borderBottomColor: THEME.colors.gray[800],
     flexDirection: 'row',
     alignItems: 'center',
-    columnGap: 8
+    columnGap: 8,
   },
   text: {
     fontFamily: THEME.fonts.medium,
