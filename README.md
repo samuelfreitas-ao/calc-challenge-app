@@ -38,3 +38,7 @@ npm run start
 ## Baixe o aplicativo e instale no seu android
 
 - [Baixar o apk](https://www.mediafire.com/file/k0wt53qvoliaa30/Calc_Challenge.apk/file)
+
+## Assista o vídeo de apresentação do app
+
+[Assistir apresentação](https://youtu.be/IvNon73dEjU)
