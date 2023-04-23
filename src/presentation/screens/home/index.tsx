@@ -8,7 +8,6 @@ import {
   Button,
   IconHandPointing,
   IconPaperPlaneRight,
-  MenuBar,
   SimpleButton,
   Text,
   TopBar
@@ -17,6 +16,7 @@ import { History, HistoryItem } from '../../components/history'
 import { DateUtils, QuestionUtils } from '../../../utils'
 import { IQuestion } from '../../../@types'
 import { useApp } from '../../../hooks'
+import { MenuBar } from '../../components/menu/menu-bar'
 
 export function Home () {
   const { historyList, setShowHistory, showAboutInfo, showHistory } = useApp()
