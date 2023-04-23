@@ -1,5 +1,4 @@
 import { View, Alert, TouchableOpacity } from "react-native"
-import { ReactNode } from "react"
 import * as MailComposer from 'expo-mail-composer'
 
 import Styles from './styles'
@@ -24,6 +23,7 @@ import {
 } from "../icon"
 import { SimpleButton } from "../button"
 import styles from "./styles"
+import { AboutTextBox } from "./about-text-box"
 
 export function AboutInfo () {
   const { setShowAboutInfo } = useApp()
@@ -96,13 +96,13 @@ export function AboutInfo () {
             style={{
               rowGap: 4
             }}>
-            <TextBox
+            <AboutTextBox
               icon={<IconUser color={THEME.colors.gray[800]} weight="fill" />}
               value={developer.name}
             />
             <TouchableOpacity
               onPress={handleMail}>
-              <TextBox
+              <AboutTextBox
                 icon={<IconEmail color={THEME.colors.gray[800]} />}
                 value={developer.email}
                 isLink={true}
@@ -110,7 +110,7 @@ export function AboutInfo () {
             </TouchableOpacity>
             <SimpleButton
               onPress={async () => handleOpenLink(links.github)}>
-              <TextBox
+              <AboutTextBox
                 icon={<IconGithub color={THEME.colors.gray[800]} weight="fill" />}
                 value={links.github.substring(8)}
                 isLink={true}
@@ -118,6 +118,7 @@ export function AboutInfo () {
             </SimpleButton>
           </View>
         </View>
+
         <View style={styles.socialLinks}>
           <SimpleButton onPress={async () => handleOpenLink(links.whatsapp)}>
             <IconWhatsapp color={THEME.colors.gray[800]} weight="fill"
@@ -141,28 +142,3 @@ export function AboutInfo () {
   )
 }
 
-type TextBoxProps = {
-  icon?: ReactNode
-  value: string
-  isLink?: boolean
-}
-function TextBox ({ value, icon, isLink }: TextBoxProps) {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        columnGap: 4
-      }}
-    >
-      {icon}
-      <Text
-        style={{
-          fontFamily: THEME.fonts.medium,
-          fontSize: THEME.fontSizes.md,
-          textDecorationLine: isLink ? 'underline' : 'none',
-          color: isLink ? THEME.colors.blue[800] : THEME.colors.gray[800],
-        }}
-      >{value}</Text>
-    </View>
-  )
-}
