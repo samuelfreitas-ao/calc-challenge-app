@@ -37,12 +37,12 @@ export function HistoryItem ({ history, hidenButtonDelete, index }: HistoryItemP
         <TextBox text={history.value2.toString()} />
         <TextBox text={'='} />
         <TextBox text={history.answer.toString()} />
-        {history.isRight ?
+        {history.isCorrect ?
           <IconThumbsUp weight='fill' color={THEME.colors.green[700]} /> :
           <>
             <IconThumbsDown weight='fill' color={THEME.colors.red[700]} />
             <Text
-              text={`Resposta certa: ${history.rightAnswer}`}
+              text={`Resposta certa: ${history.correctAnswer}`}
               style={Styles.rightAnswer}
             />
           </>

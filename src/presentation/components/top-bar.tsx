@@ -9,14 +9,14 @@ type Props = { timer: number }
 
 export function TopBar ({ timer }: Props) {
   const { historyList } = useApp()
-  const wrongPoints = historyList.filter(quest => !quest.isRight).length
-  const rightPoints = historyList.filter(quest => quest.isRight).length
+  const wrongPoints = historyList.filter(quest => !quest.isCorrect).length
+  const correctPoints = historyList.filter(quest => quest.isCorrect).length
 
   return (
     <View style={styles.container}>
       <Points points={wrongPoints} type="wrong" />
       <Text text={DateUtils.secondsToTime(timer)} style={styles.timer} />
-      <Points points={rightPoints} type="right" />
+      <Points points={correctPoints} type="correct" />
     </View>
   )
 }

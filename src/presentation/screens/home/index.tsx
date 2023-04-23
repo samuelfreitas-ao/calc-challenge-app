@@ -62,14 +62,14 @@ export function Home () {
       generateQuestion()
       return
     }
-    const rightAnswer = QuestionUtils.execCalc(question.value1, question.value2, question.operator)
-    const isRight = rightAnswer === Number(answer)
+    const correctAnswer = QuestionUtils.execCalc(question.value1, question.value2, question.operator)
+    const isCorrect = correctAnswer === Number(answer)
 
     QuestionUtils.add({
       ...question,
-      isRight,
+      isCorrect,
       answer: Number(answer),
-      rightAnswer,
+      correctAnswer,
       seconds: timer,
       time: DateUtils.secondsToTime(timer),
       date: new Date()
