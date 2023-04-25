@@ -1,4 +1,4 @@
-# CalcGuess
+# Calc Challenge
 
 <p>
   Este app mobile é de uma calculadora, aonde o usuário pode treinar a tabuada. ela gera desafios de cálculo aleatório e acrescenta pontos positivos caso acerte e negativos caso erre no resultado.
