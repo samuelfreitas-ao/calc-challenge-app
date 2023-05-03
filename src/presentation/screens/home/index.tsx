@@ -19,7 +19,7 @@ import { useApp } from '../../../hooks'
 import { MenuBar } from '../../components/menu/menu-bar'
 
 export function Home () {
-  const { historyList, setShowHistory, showAboutInfo, showHistory } = useApp()
+  const { historyList, setHistoryList, setShowHistory, showAboutInfo, showHistory } = useApp()
   const [question, setQuestion] = useState<IQuestion>({} as IQuestion)
   const [answer, setAnswer] = useState<string>('')
   const [timer, setTimer] = useState<number>(0)
@@ -51,7 +51,7 @@ export function Home () {
     return `${question.value1} ${question.operator} ${question.value2}${question.answer ? ' = ' + question.answer : ''}`
   }
 
-  const handleConfirme = () => {
+  const handleConfirme = async () => {
     if (!answer && started) {
       Alert.alert('Aviso', 'Informe o resultado')
       return
@@ -65,7 +65,7 @@ export function Home () {
     const correctAnswer = QuestionUtils.execCalc(question.value1, question.value2, question.operator)
     const isCorrect = correctAnswer === Number(answer)
 
-    QuestionUtils.add({
+    await QuestionUtils.add({
       ...question,
       isCorrect,
       answer: Number(answer),
@@ -74,7 +74,9 @@ export function Home () {
       time: DateUtils.secondsToTime(timer),
       date: new Date()
     })
+    const newList = await QuestionUtils.getAll()
     setAnswer('')
+    setHistoryList(newList)
   }
 
   return (

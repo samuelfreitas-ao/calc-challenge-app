@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import { IQuestion } from '../../@types'
 import { QuestionUtils } from '../../utils'
 
@@ -24,7 +24,16 @@ export const AppProvider = ({ children }: AppProviderType) => {
   const [showAboutInfo, setShowAboutInfo] = useState<boolean>(false)
   const [showHistory, setShowHistory] = useState<boolean>(false)
 
-  const [historyList, setHistoryList] = useState<IQuestion[]>(QuestionUtils.quetions ?? [])
+  const [historyList, setHistoryList] = useState<IQuestion[]>([])
+
+  useEffect(() => {
+    console.log('Loaded');
+
+    (async () => {
+      const list = await QuestionUtils.getAll()
+      setHistoryList(list)
+    })()
+  }, [])
 
   return (
     <AppContext.Provider value={{

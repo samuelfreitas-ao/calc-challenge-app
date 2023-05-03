@@ -23,10 +23,11 @@ type HistoryItemProps = {
 
 export function HistoryItem ({ history, hidenButtonDelete, index }: HistoryItemProps) {
   const { setHistoryList } = useApp()
-  const onRemove = (quest: IQuestion) => {
-    QuestionUtils.quetions = [...QuestionUtils.quetions].
-      filter(questItem => questItem.date != quest.date)
-    setHistoryList(QuestionUtils.quetions)
+  const onRemove = async (quest: IQuestion) => {
+    await QuestionUtils.remove(quest)
+
+    const histories = await QuestionUtils.getAll()
+    setHistoryList(histories)
   }
   return (
     <Pressable style={Styles.container}>
